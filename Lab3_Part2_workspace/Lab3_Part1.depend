@@ -1,5 +1,19 @@
 # depslib dependency file v1.0
-1678899765 source:d:\practise codes\lab3_part1\main.c
+1678914752 source:d:\practise codes\lab3_part1\main.c
+	<mcs51/8051.h>
+	<at89c51ed2.h>
+	<mcs51reg.h>
+	<stdint.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdbool.h>
+	"fsm.h"
+
+1678927126 source:d:\practise codes\lab3_part1\_heap.c
+
+1678924930 source:d:\practise codes\lab3_part1\ip_out.c
+	"ip_out.h"
+	"buffer_operation.h"
 	<mcs51/8051.h>
 	<at89c51ed2.h>
 	<mcs51reg.h>
@@ -8,5 +22,33 @@
 	<stdio.h>
 	<stdbool.h>
 
-1678582810 source:d:\practise codes\lab3_part1\_heap.c
+1678924945 d:\practise codes\lab3_part1\ip_out.h
+
+1678924873 source:d:\practise codes\lab3_part1\buffer_operation.c
+	"buffer_operation.h"
+	<mcs51/8051.h>
+	<at89c51ed2.h>
+	<mcs51reg.h>
+	<stdint.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdbool.h>
+	"buffer_operation.h"
+	"ip_out.h"
+
+1678912338 d:\practise codes\lab3_part1\buffer_operation.h
+
+1678925039 d:\practise codes\lab3_part1\fsm.h
+
+1678927591 source:d:\practise codes\lab3_part1\fsm.c
+	<mcs51/8051.h>
+	<at89c51ed2.h>
+	<mcs51reg.h>
+	<stdint.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdbool.h>
+	"fsm.h"
+	"ip_out.h"
+	"buffer_operation.h"
 

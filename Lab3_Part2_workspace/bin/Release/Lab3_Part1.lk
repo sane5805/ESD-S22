@@ -16,6 +16,9 @@
 -l liblong
 -l libfloat
 obj\Release\_heap.rel
+obj\Release\buffer_operation.rel
+obj\Release\fsm.rel
+obj\Release\ip_out.rel
 obj\Release\main.rel
 
 -e

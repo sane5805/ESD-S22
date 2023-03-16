@@ -2,14 +2,13 @@
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 4.2.0 #13081 (MINGW64)
 ;--------------------------------------------------------
-	.module main
+	.module ip_out
 	.optsdcc -mmcs51 --model-small
 	
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _main
-	.globl _fsm
+	.globl _printf_tiny
 	.globl _TF1
 	.globl _TR1
 	.globl _TF0
@@ -219,6 +218,9 @@
 	.globl _RCAP2H
 	.globl _RCAP2L
 	.globl _T2CON
+	.globl _getchar
+	.globl _putchar
+	.globl _fetch_character
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -450,13 +452,7 @@ _TF1	=	0x008f
 ;--------------------------------------------------------
 ; overlayable items in internal ram
 ;--------------------------------------------------------
-;--------------------------------------------------------
-; Stack segment in internal ram
-;--------------------------------------------------------
-	.area	SSEG
-__start__stack:
-	.ds	1
-
+	.area	OSEG    (OVR,DATA)
 ;--------------------------------------------------------
 ; indirectly addressable internal ram data
 ;--------------------------------------------------------
@@ -497,46 +493,29 @@ __start__stack:
 	.area GSFINAL (CODE)
 	.area CSEG    (CODE)
 ;--------------------------------------------------------
-; interrupt vector
-;--------------------------------------------------------
-	.area HOME    (CODE)
-__interrupt_vect:
-	ljmp	__sdcc_gsinit_startup
-;--------------------------------------------------------
 ; global & static initialisations
 ;--------------------------------------------------------
 	.area HOME    (CODE)
 	.area GSINIT  (CODE)
 	.area GSFINAL (CODE)
 	.area GSINIT  (CODE)
-	.globl __sdcc_gsinit_startup
-	.globl __sdcc_program_startup
-	.globl __start__stack
-	.globl __mcs51_genXINIT
-	.globl __mcs51_genXRAMCLEAR
-	.globl __mcs51_genRAMCLEAR
-	.area GSFINAL (CODE)
-	ljmp	__sdcc_program_startup
 ;--------------------------------------------------------
 ; Home
 ;--------------------------------------------------------
 	.area HOME    (CODE)
 	.area HOME    (CODE)
-__sdcc_program_startup:
-	ljmp	_main
-;	return from main will return to caller
 ;--------------------------------------------------------
 ; code
 ;--------------------------------------------------------
 	.area CSEG    (CODE)
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
+;Allocation info for local variables in function 'getchar'
 ;------------------------------------------------------------
-;	main.c:33: void main()
+;	ip_out.c:34: int getchar(void)
 ;	-----------------------------------------
-;	 function main
+;	 function getchar
 ;	-----------------------------------------
-_main:
+_getchar:
 	ar7 = 0x07
 	ar6 = 0x06
 	ar5 = 0x05
@@ -545,10 +524,394 @@ _main:
 	ar2 = 0x02
 	ar1 = 0x01
 	ar0 = 0x00
-;	main.c:36: fsm();
-;	main.c:37: }
-	ljmp	_fsm
+;	ip_out.c:37: while (!RI);
+00101$:
+;	ip_out.c:40: RI = 0;
+;	assignBit
+	jbc	_RI,00114$
+	sjmp	00101$
+00114$:
+;	ip_out.c:43: return SBUF;
+	mov	r6,_SBUF
+	mov	r7,#0x00
+	mov	dpl,r6
+	mov	dph,r7
+;	ip_out.c:44: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'putchar'
+;------------------------------------------------------------
+;ch                        Allocated to registers r6 r7 
+;------------------------------------------------------------
+;	ip_out.c:46: int putchar(int ch)
+;	-----------------------------------------
+;	 function putchar
+;	-----------------------------------------
+_putchar:
+	mov	r6,dpl
+	mov	r7,dph
+;	ip_out.c:49: while(!TI);
+00101$:
+	jnb	_TI,00101$
+;	ip_out.c:52: SBUF = ch;
+	mov	_SBUF,r6
+;	ip_out.c:55: TI = 0;
+;	assignBit
+	clr	_TI
+;	ip_out.c:57: return ch;
+	mov	dpl,r6
+	mov	dph,r7
+;	ip_out.c:58: }
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'fetch_character'
+;------------------------------------------------------------
+;character                 Allocated to registers r5 r6 r7 
+;ret                       Allocated to registers r6 r7 
+;ch                        Allocated to registers r3 
+;------------------------------------------------------------
+;	ip_out.c:84: int fetch_character(char * character)
+;	-----------------------------------------
+;	 function fetch_character
+;	-----------------------------------------
+_fetch_character:
+	mov	r5,dpl
+	mov	r6,dph
+	mov	r7,b
+;	ip_out.c:86: printf_tiny("|***********************************************|\n\r");
+	push	ar7
+	push	ar6
+	push	ar5
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:87: printf_tiny("|************ USER Interfase *******************|\n\r");
+	mov	a,#___str_1
+	push	acc
+	mov	a,#(___str_1 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:88: printf_tiny("|  Choose a character from the below options    |\n\r");
+	mov	a,#___str_2
+	push	acc
+	mov	a,#(___str_2 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:89: printf_tiny("|  a-z  | Character to store in the buffer      |\n\r");
+	mov	a,#___str_3
+	push	acc
+	mov	a,#(___str_3 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:90: printf_tiny("|  +    | Allocate a new buffer                 |\n\r");
+	mov	a,#___str_4
+	push	acc
+	mov	a,#(___str_4 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:91: printf_tiny("|  -    | Delete a buffer                       |\n\r");
+	mov	a,#___str_5
+	push	acc
+	mov	a,#(___str_5 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:92: printf_tiny("|  ?    | Display the heap report               |\n\r");
+	mov	a,#___str_6
+	push	acc
+	mov	a,#(___str_6 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:93: printf_tiny("|  =    | Display contents of Buffer_0          |\n\r");
+	mov	a,#___str_7
+	push	acc
+	mov	a,#(___str_7 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:94: printf_tiny("|  @    | Free all the buffers                  |\n\r");
+	mov	a,#___str_8
+	push	acc
+	mov	a,#(___str_8 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:95: printf_tiny("|***********************************************|\n\r");
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:96: printf_tiny("|***********************************************|\n\r");
+	mov	a,#___str_0
+	push	acc
+	mov	a,#(___str_0 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:100: printf_tiny("\n\rEnter a character: ");
+	mov	a,#___str_9
+	push	acc
+	mov	a,#(___str_9 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:102: char ch = getchar();
+	lcall	_getchar
+	mov	r3,dpl
+	pop	ar5
+	pop	ar6
+	pop	ar7
+;	ip_out.c:104: *character = ch;
+	mov	dpl,r5
+	mov	dph,r6
+	mov	b,r7
+	mov	a,r3
+	lcall	__gptrput
+;	ip_out.c:105: putchar(ch);putchar(' ');
+	mov	ar6,r3
+	mov	r7,#0x00
+	mov	dpl,r6
+	mov	dph,r7
+	push	ar3
+	lcall	_putchar
+	mov	dptr,#0x0020
+	lcall	_putchar
+;	ip_out.c:107: printf_tiny("\n\r\n\r");
+	mov	a,#___str_10
+	push	acc
+	mov	a,#(___str_10 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+	pop	ar3
+;	ip_out.c:109: if(ch == '\r')
+	cjne	r3,#0x0d,00113$
+;	ip_out.c:111: ret = type_enter_pressed;
+	mov	r6,#0x03
+	mov	r7,#0x00
+;	ip_out.c:113: printf_tiny("Enter is pressed straight away, enter a valid character\n\r");
+	push	ar7
+	push	ar6
+	mov	a,#___str_11
+	push	acc
+	mov	a,#(___str_11 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+	pop	ar6
+	pop	ar7
+	sjmp	00114$
+00113$:
+;	ip_out.c:116: else if(ch >= 'a' && ch <= 'z')
+	cjne	r3,#0x61,00147$
+00147$:
+	jc	00109$
+	mov	a,r3
+	add	a,#0xff - 0x7a
+	jc	00109$
+;	ip_out.c:118: ret = type_storage_characters;
+	mov	r6,#0x00
+	mov	r7,#0x00
+;	ip_out.c:120: printf_tiny("Storage character entered\n\r\n\r");
+	push	ar7
+	push	ar6
+	mov	a,#___str_12
+	push	acc
+	mov	a,#(___str_12 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+	pop	ar6
+	pop	ar7
+	sjmp	00114$
+00109$:
+;	ip_out.c:123: else if( ch == '+' ||
+	cjne	r3,#0x2b,00150$
+	sjmp	00101$
+00150$:
+;	ip_out.c:124: ch == '-' ||
+	cjne	r3,#0x2d,00151$
+	sjmp	00101$
+00151$:
+;	ip_out.c:125: ch == '?' ||
+	cjne	r3,#0x3f,00152$
+	sjmp	00101$
+00152$:
+;	ip_out.c:126: ch == '=' ||
+	cjne	r3,#0x3d,00153$
+	sjmp	00101$
+00153$:
+;	ip_out.c:127: ch == '@')
+	cjne	r3,#0x40,00102$
+00101$:
+;	ip_out.c:129: printf_tiny("Command character entered\n\r\n\r");
+	mov	a,#___str_13
+	push	acc
+	mov	a,#(___str_13 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:131: ret = type_command_characters;
+	mov	r6,#0x02
+	mov	r7,#0x00
+	sjmp	00114$
+00102$:
+;	ip_out.c:135: printf_tiny("Not a valid character for the system\n\r\n\r");
+	mov	a,#___str_14
+	push	acc
+	mov	a,#(___str_14 >> 8)
+	push	acc
+	lcall	_printf_tiny
+	dec	sp
+	dec	sp
+;	ip_out.c:137: ret = type_invalid;
+	mov	r6,#0xff
+	mov	r7,#0xff
+00114$:
+;	ip_out.c:140: return ret;
+	mov	dpl,r6
+	mov	dph,r7
+;	ip_out.c:141: }
+	ret
 	.area CSEG    (CODE)
 	.area CONST   (CODE)
+	.area CONST   (CODE)
+___str_0:
+	.ascii "|***********************************************|"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_1:
+	.ascii "|************ USER Interfase *******************|"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_2:
+	.ascii "|  Choose a character from the below options    |"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_3:
+	.ascii "|  a-z  | Character to store in the buffer      |"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_4:
+	.ascii "|  +    | Allocate a new buffer                 |"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_5:
+	.ascii "|  -    | Delete a buffer                       |"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_6:
+	.ascii "|  ?    | Display the heap report               |"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_7:
+	.ascii "|  =    | Display contents of Buffer_0          |"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_8:
+	.ascii "|  @    | Free all the buffers                  |"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_9:
+	.db 0x0a
+	.db 0x0d
+	.ascii "Enter a character: "
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_10:
+	.db 0x0a
+	.db 0x0d
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_11:
+	.ascii "Enter is pressed straight away, enter a valid character"
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_12:
+	.ascii "Storage character entered"
+	.db 0x0a
+	.db 0x0d
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_13:
+	.ascii "Command character entered"
+	.db 0x0a
+	.db 0x0d
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
+	.area CONST   (CODE)
+___str_14:
+	.ascii "Not a valid character for the system"
+	.db 0x0a
+	.db 0x0d
+	.db 0x0a
+	.db 0x0d
+	.db 0x00
+	.area CSEG    (CODE)
 	.area XINIT   (CODE)
 	.area CABS    (ABS,CODE)

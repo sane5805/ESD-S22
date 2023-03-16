@@ -3,8 +3,8 @@
  * Copyright (C) 2023 by Saurav Negi
  *
  *
- * @file			main.c
- * @brief			Contains implementation for getchar and putchar
+ * @file			fsm.h
+ * @brief
  *
  * @author			Saurav Negi, Saurav.Negi@colorado.edu
  * @date			Mar 10th, 2023
@@ -20,18 +20,34 @@
  **********************************************************************************/
 
 
-#include <mcs51/8051.h>
-#include <at89c51ed2.h>
-#include <mcs51reg.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
+#ifndef FSM_H_
+#define FSM_H_
 
-#include "fsm.h"
 
-void main()
-{
-    // trigger the fsm
-    fsm();
-}
+
+
+/*************************************************************************
+ * Global variables
+ *************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+/*************************************************************************
+ * Function prototype
+ *************************************************************************/
+
+void fsm(void);
+
+
+
+
+#endif

@@ -51,10 +51,10 @@ C:   00000020  s__CODE
 C:   00000022  l_GSINIT3                       
 C:   00000025  l_GSINIT                        
 C:   0000002A  l_GSINIT4                       
-C:   00000063  s_OSEG                          
-C:   00000067  s_SSEG                          
+C:   00000075  s_OSEG                          
+C:   00000079  s_SSEG                          
 C:   00000080  l_DSEG                          
-C:   00000099  l_SSEG                          
+C:   00000087  l_SSEG                          
 C:   00000100  l_IRAM                          
 C:   00000400  s_PSEG                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
@@ -67,8 +67,8 @@ CABS                                00000000    00000000 =           0. bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 C:   00000400  s_XSEG                          
-C:   000008AB  l_CONST                         
-C:   0000127F  l_CSEG                          
+C:   00000903  l_CONST                         
+C:   000012BD  l_CSEG                          
 C:   00001772  l_XSEG                          
 C:   00001B72  s_XISEG                         
 C:   00002000  s_HOME                          
@@ -81,8 +81,8 @@ C:   0000205F  s_GSINIT
 C:   0000205F  s_GSINIT5                       
 C:   00002084  s_GSFINAL                       
 C:   00002087  s_CSEG                          
-C:   00003306  s_CONST                         
-C:   00003BB1  s_XINIT                         
+C:   00003344  s_CONST                         
+C:   00003C47  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -362,43 +362,43 @@ DSEG                                00000000    00000080 =         128. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000008  _buffer0                           main
-     0000000B  _buffer1                           main
-     0000000E  _new_buffer                        main
-     0000002C  _new_buffer_size                   main
-     00000040  _new_buffer_index                  main
-     00000042  _num                               main
-     00000044  _buffer_0_and_1_size               main
-     00000046  _other_buffer_size                 main
-     00000048  _total_characters                  main
-     0000004A  _storage_characters_buffer_0       main
-     00000062  _bp                                _bp
+     0000000A  _buffer0                           fsm
+     0000000D  _buffer1                           fsm
+     00000010  _new_buffer                        fsm
+     00000037  _new_buffer_size                   fsm
+     00000051  _num                               fsm
+     00000053  _buffer_0_and_1_size               fsm
+     00000055  _other_buffer_size                 fsm
+     00000057  _total_characters                  fsm
+     00000059  _storage_characters_buffer_0       fsm
+     0000005B  _new_buffer_index                  fsm
+     00000074  _bp                                _bp
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-OSEG                                00000063    00000004 =           4. bytes (REL,OVR)
+OSEG                                00000075    00000004 =           4. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000063  __gptrput_PARM_2                   _gptrput
-     00000063  __modsint_PARM_2                   _moduint
-     00000063  __moduint_PARM_2                   _moduint
-     00000063  __mulint_PARM_2                    _mulint
-     00000063  _clear_buffer_PARM_2               main
+     00000075  __gptrput_PARM_2                   _gptrput
+     00000075  __modsint_PARM_2                   _moduint
+     00000075  __moduint_PARM_2                   _moduint
+     00000075  __mulint_PARM_2                    _mulint
+     00000075  _clear_buffer_PARM_2               buffer_operation
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                00000067    00000099 =         153. bytes (REL,OVR)
+SSEG                                00000079    00000087 =         135. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000067  __start__stack                     main
+     00000079  __start__stack                     main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
@@ -489,52 +489,52 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00002087    0000127F =        4735. bytes (REL,CON,CODE)
+CSEG                                00002087    000012BD =        4797. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00002087  __sdcc_external_startup            main
-C:   0000208E  _getchar                           main
-C:   0000209C  _putchar                           main
-C:   000020AC  _putchar_                          main
-C:   000020BC  _getchar_                          main
-C:   000020C5  _gets_                             main
-C:   00002137  _puts_                             main
-C:   00002166  _fetch_buffer_size                 main
-C:   000023FB  _flush_address                     main
-C:   00002497  _flush_buffer0_ASCII               main
-C:   0000259C  _flush_buffer0                     main
-C:   000026A1  _clear_buffer                      main
-C:   000026D6  _fetch_character                   main
-C:   0000285A  _free_buffers                      main
-C:   000028AA  _main                              main
-C:   00002ED6  _free                              free
-C:   00002FC7  __gptrput                          _gptrput
-C:   00002FE2  _printf_tiny                       printf_tiny
-C:   000030EB  ___sdcc_heap_init                  malloc
-C:   00003127  _malloc                            malloc
-C:   0000324A  __mulint                           _mulint
-C:   0000324A  __mulint_dummy                     _mulint
-C:   00003267  __moduint                          _moduint
-C:   000032B4  __gptrget                          _gptrget
-C:   000032D0  __modsint                          _modsint
+C:   00002087  _clear_buffer                      buffer_operation
+C:   000020BC  _fetch_buffer_size                 buffer_operation
+C:   00002351  _dataout                           fsm
+C:   0000235D  __sdcc_external_startup            fsm
+C:   00002364  _print_address_in_hex              fsm
+C:   00002400  _print_buffer0_ascii               fsm
+C:   00002505  _print_buffer0_hex                 fsm
+C:   0000260A  _fsm                               fsm
+C:   00002D6F  _getchar                           ip_out
+C:   00002D7D  _putchar                           ip_out
+C:   00002D8D  _fetch_character                   ip_out
+C:   00002F11  _main                              main
+C:   00002F14  _free                              free
+C:   00003005  __gptrput                          _gptrput
+C:   00003020  _printf_tiny                       printf_tiny
+C:   00003129  ___sdcc_heap_init                  malloc
+C:   00003165  _malloc                            malloc
+C:   00003288  __mulint                           _mulint
+C:   00003288  __mulint_dummy                     _mulint
+C:   000032A5  __moduint                          _moduint
+C:   000032F2  __gptrget                          _gptrget
+C:   0000330E  __modsint                          _modsint
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00003306    000008AB =        2219. bytes (REL,CON,CODE)
+CONST                               00003344    00000903 =        2307. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00003306  ___sdcc_heap_size                  _heap
+C:   00003344  ___sdcc_heap_size                  _heap
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 
 Files Linked                              [ module(s) ]
 
 obj\Release\_heap.rel                     [  ]
+obj\Release\buffer_operation.rel          [  ]
+obj\Release\fsm.rel                       [  ]
+obj\Release\ip_out.rel                    [  ]
 obj\Release\main.rel                      [  ]
 
 

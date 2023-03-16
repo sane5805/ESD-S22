@@ -3,7 +3,7 @@
  * Copyright (C) 2023 by Saurav Negi
  *
  *
- * @file			main.c
+ * @file			ip_op.h
  * @brief			Contains implementation for getchar and putchar
  *
  * @author			Saurav Negi, Saurav.Negi@colorado.edu
@@ -20,18 +20,37 @@
  **********************************************************************************/
 
 
-#include <mcs51/8051.h>
-#include <at89c51ed2.h>
-#include <mcs51reg.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
+#ifndef IP_OUT_H_
+#define IP_OUT_H_
 
-#include "fsm.h"
 
-void main()
+typedef enum
 {
-    // trigger the fsm
-    fsm();
-}
+    type_invalid            = -1,
+    type_storage_characters =  0,
+    type_command_characters =  2,
+    type_enter_pressed      =  3
+};
+
+/*
+ * fetches the character
+ */
+int getchar(void);
+
+
+/*
+ * flushes the character back
+ */
+int putchar(int);
+
+//int putchar_ (char c);
+//char getchar_ ();
+
+
+/*
+ * fetches character
+ */
+int fetch_character(char *);
+
+
+#endif

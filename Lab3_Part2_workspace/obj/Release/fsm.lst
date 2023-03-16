@@ -1,0 +1,2611 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 4.2.0 #13081 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module fsm
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _print_buffer0_hex
+                                     12 	.globl _print_buffer0_ascii
+                                     13 	.globl _print_address_in_hex
+                                     14 	.globl __sdcc_external_startup
+                                     15 	.globl _dataout
+                                     16 	.globl _fetch_buffer_size
+                                     17 	.globl _fetch_character
+                                     18 	.globl _putchar
+                                     19 	.globl _getchar
+                                     20 	.globl _printf_tiny
+                                     21 	.globl _free
+                                     22 	.globl _malloc
+                                     23 	.globl _TF1
+                                     24 	.globl _TR1
+                                     25 	.globl _TF0
+                                     26 	.globl _TR0
+                                     27 	.globl _IE1
+                                     28 	.globl _IT1
+                                     29 	.globl _IE0
+                                     30 	.globl _IT0
+                                     31 	.globl _SM0
+                                     32 	.globl _SM1
+                                     33 	.globl _SM2
+                                     34 	.globl _REN
+                                     35 	.globl _TB8
+                                     36 	.globl _RB8
+                                     37 	.globl _TI
+                                     38 	.globl _RI
+                                     39 	.globl _CY
+                                     40 	.globl _AC
+                                     41 	.globl _F0
+                                     42 	.globl _RS1
+                                     43 	.globl _RS0
+                                     44 	.globl _OV
+                                     45 	.globl _F1
+                                     46 	.globl _P
+                                     47 	.globl _RD
+                                     48 	.globl _WR
+                                     49 	.globl _T1
+                                     50 	.globl _T0
+                                     51 	.globl _INT1
+                                     52 	.globl _INT0
+                                     53 	.globl _TXD0
+                                     54 	.globl _TXD
+                                     55 	.globl _RXD0
+                                     56 	.globl _RXD
+                                     57 	.globl _P3_7
+                                     58 	.globl _P3_6
+                                     59 	.globl _P3_5
+                                     60 	.globl _P3_4
+                                     61 	.globl _P3_3
+                                     62 	.globl _P3_2
+                                     63 	.globl _P3_1
+                                     64 	.globl _P3_0
+                                     65 	.globl _P2_7
+                                     66 	.globl _P2_6
+                                     67 	.globl _P2_5
+                                     68 	.globl _P2_4
+                                     69 	.globl _P2_3
+                                     70 	.globl _P2_2
+                                     71 	.globl _P2_1
+                                     72 	.globl _P2_0
+                                     73 	.globl _P1_7
+                                     74 	.globl _P1_6
+                                     75 	.globl _P1_5
+                                     76 	.globl _P1_4
+                                     77 	.globl _P1_3
+                                     78 	.globl _P1_2
+                                     79 	.globl _P1_1
+                                     80 	.globl _P1_0
+                                     81 	.globl _P0_7
+                                     82 	.globl _P0_6
+                                     83 	.globl _P0_5
+                                     84 	.globl _P0_4
+                                     85 	.globl _P0_3
+                                     86 	.globl _P0_2
+                                     87 	.globl _P0_1
+                                     88 	.globl _P0_0
+                                     89 	.globl _PS
+                                     90 	.globl _PT1
+                                     91 	.globl _PX1
+                                     92 	.globl _PT0
+                                     93 	.globl _PX0
+                                     94 	.globl _EA
+                                     95 	.globl _ES
+                                     96 	.globl _ET1
+                                     97 	.globl _EX1
+                                     98 	.globl _ET0
+                                     99 	.globl _EX0
+                                    100 	.globl _BREG_F7
+                                    101 	.globl _BREG_F6
+                                    102 	.globl _BREG_F5
+                                    103 	.globl _BREG_F4
+                                    104 	.globl _BREG_F3
+                                    105 	.globl _BREG_F2
+                                    106 	.globl _BREG_F1
+                                    107 	.globl _BREG_F0
+                                    108 	.globl _P5_7
+                                    109 	.globl _P5_6
+                                    110 	.globl _P5_5
+                                    111 	.globl _P5_4
+                                    112 	.globl _P5_3
+                                    113 	.globl _P5_2
+                                    114 	.globl _P5_1
+                                    115 	.globl _P5_0
+                                    116 	.globl _P4_7
+                                    117 	.globl _P4_6
+                                    118 	.globl _P4_5
+                                    119 	.globl _P4_4
+                                    120 	.globl _P4_3
+                                    121 	.globl _P4_2
+                                    122 	.globl _P4_1
+                                    123 	.globl _P4_0
+                                    124 	.globl _PX0L
+                                    125 	.globl _PT0L
+                                    126 	.globl _PX1L
+                                    127 	.globl _PT1L
+                                    128 	.globl _PSL
+                                    129 	.globl _PT2L
+                                    130 	.globl _PPCL
+                                    131 	.globl _EC
+                                    132 	.globl _CCF0
+                                    133 	.globl _CCF1
+                                    134 	.globl _CCF2
+                                    135 	.globl _CCF3
+                                    136 	.globl _CCF4
+                                    137 	.globl _CR
+                                    138 	.globl _CF
+                                    139 	.globl _TF2
+                                    140 	.globl _EXF2
+                                    141 	.globl _RCLK
+                                    142 	.globl _TCLK
+                                    143 	.globl _EXEN2
+                                    144 	.globl _TR2
+                                    145 	.globl _C_T2
+                                    146 	.globl _CP_RL2
+                                    147 	.globl _T2CON_7
+                                    148 	.globl _T2CON_6
+                                    149 	.globl _T2CON_5
+                                    150 	.globl _T2CON_4
+                                    151 	.globl _T2CON_3
+                                    152 	.globl _T2CON_2
+                                    153 	.globl _T2CON_1
+                                    154 	.globl _T2CON_0
+                                    155 	.globl _PT2
+                                    156 	.globl _ET2
+                                    157 	.globl _TMOD
+                                    158 	.globl _TL1
+                                    159 	.globl _TL0
+                                    160 	.globl _TH1
+                                    161 	.globl _TH0
+                                    162 	.globl _TCON
+                                    163 	.globl _SP
+                                    164 	.globl _SCON
+                                    165 	.globl _SBUF0
+                                    166 	.globl _SBUF
+                                    167 	.globl _PSW
+                                    168 	.globl _PCON
+                                    169 	.globl _P3
+                                    170 	.globl _P2
+                                    171 	.globl _P1
+                                    172 	.globl _P0
+                                    173 	.globl _IP
+                                    174 	.globl _IE
+                                    175 	.globl _DP0L
+                                    176 	.globl _DPL
+                                    177 	.globl _DP0H
+                                    178 	.globl _DPH
+                                    179 	.globl _B
+                                    180 	.globl _ACC
+                                    181 	.globl _EECON
+                                    182 	.globl _KBF
+                                    183 	.globl _KBE
+                                    184 	.globl _KBLS
+                                    185 	.globl _BRL
+                                    186 	.globl _BDRCON
+                                    187 	.globl _T2MOD
+                                    188 	.globl _SPDAT
+                                    189 	.globl _SPSTA
+                                    190 	.globl _SPCON
+                                    191 	.globl _SADEN
+                                    192 	.globl _SADDR
+                                    193 	.globl _WDTPRG
+                                    194 	.globl _WDTRST
+                                    195 	.globl _P5
+                                    196 	.globl _P4
+                                    197 	.globl _IPH1
+                                    198 	.globl _IPL1
+                                    199 	.globl _IPH0
+                                    200 	.globl _IPL0
+                                    201 	.globl _IEN1
+                                    202 	.globl _IEN0
+                                    203 	.globl _CMOD
+                                    204 	.globl _CL
+                                    205 	.globl _CH
+                                    206 	.globl _CCON
+                                    207 	.globl _CCAPM4
+                                    208 	.globl _CCAPM3
+                                    209 	.globl _CCAPM2
+                                    210 	.globl _CCAPM1
+                                    211 	.globl _CCAPM0
+                                    212 	.globl _CCAP4L
+                                    213 	.globl _CCAP3L
+                                    214 	.globl _CCAP2L
+                                    215 	.globl _CCAP1L
+                                    216 	.globl _CCAP0L
+                                    217 	.globl _CCAP4H
+                                    218 	.globl _CCAP3H
+                                    219 	.globl _CCAP2H
+                                    220 	.globl _CCAP1H
+                                    221 	.globl _CCAP0H
+                                    222 	.globl _CKCON1
+                                    223 	.globl _CKCON0
+                                    224 	.globl _CKRL
+                                    225 	.globl _AUXR1
+                                    226 	.globl _AUXR
+                                    227 	.globl _TH2
+                                    228 	.globl _TL2
+                                    229 	.globl _RCAP2H
+                                    230 	.globl _RCAP2L
+                                    231 	.globl _T2CON
+                                    232 	.globl _new_buffer_index
+                                    233 	.globl _storage_characters_buffer_0
+                                    234 	.globl _total_characters
+                                    235 	.globl _other_buffer_size
+                                    236 	.globl _buffer_0_and_1_size
+                                    237 	.globl _num
+                                    238 	.globl _new_buffer_size
+                                    239 	.globl _new_buffer
+                                    240 	.globl _buffer1
+                                    241 	.globl _buffer0
+                                    242 	.globl _fsm
+                                    243 ;--------------------------------------------------------
+                                    244 ; special function registers
+                                    245 ;--------------------------------------------------------
+                                    246 	.area RSEG    (ABS,DATA)
+      000000                        247 	.org 0x0000
+                           0000C8   248 _T2CON	=	0x00c8
+                           0000CA   249 _RCAP2L	=	0x00ca
+                           0000CB   250 _RCAP2H	=	0x00cb
+                           0000CC   251 _TL2	=	0x00cc
+                           0000CD   252 _TH2	=	0x00cd
+                           00008E   253 _AUXR	=	0x008e
+                           0000A2   254 _AUXR1	=	0x00a2
+                           000097   255 _CKRL	=	0x0097
+                           00008F   256 _CKCON0	=	0x008f
+                           0000AF   257 _CKCON1	=	0x00af
+                           0000FA   258 _CCAP0H	=	0x00fa
+                           0000FB   259 _CCAP1H	=	0x00fb
+                           0000FC   260 _CCAP2H	=	0x00fc
+                           0000FD   261 _CCAP3H	=	0x00fd
+                           0000FE   262 _CCAP4H	=	0x00fe
+                           0000EA   263 _CCAP0L	=	0x00ea
+                           0000EB   264 _CCAP1L	=	0x00eb
+                           0000EC   265 _CCAP2L	=	0x00ec
+                           0000ED   266 _CCAP3L	=	0x00ed
+                           0000EE   267 _CCAP4L	=	0x00ee
+                           0000DA   268 _CCAPM0	=	0x00da
+                           0000DB   269 _CCAPM1	=	0x00db
+                           0000DC   270 _CCAPM2	=	0x00dc
+                           0000DD   271 _CCAPM3	=	0x00dd
+                           0000DE   272 _CCAPM4	=	0x00de
+                           0000D8   273 _CCON	=	0x00d8
+                           0000F9   274 _CH	=	0x00f9
+                           0000E9   275 _CL	=	0x00e9
+                           0000D9   276 _CMOD	=	0x00d9
+                           0000A8   277 _IEN0	=	0x00a8
+                           0000B1   278 _IEN1	=	0x00b1
+                           0000B8   279 _IPL0	=	0x00b8
+                           0000B7   280 _IPH0	=	0x00b7
+                           0000B2   281 _IPL1	=	0x00b2
+                           0000B3   282 _IPH1	=	0x00b3
+                           0000C0   283 _P4	=	0x00c0
+                           0000E8   284 _P5	=	0x00e8
+                           0000A6   285 _WDTRST	=	0x00a6
+                           0000A7   286 _WDTPRG	=	0x00a7
+                           0000A9   287 _SADDR	=	0x00a9
+                           0000B9   288 _SADEN	=	0x00b9
+                           0000C3   289 _SPCON	=	0x00c3
+                           0000C4   290 _SPSTA	=	0x00c4
+                           0000C5   291 _SPDAT	=	0x00c5
+                           0000C9   292 _T2MOD	=	0x00c9
+                           00009B   293 _BDRCON	=	0x009b
+                           00009A   294 _BRL	=	0x009a
+                           00009C   295 _KBLS	=	0x009c
+                           00009D   296 _KBE	=	0x009d
+                           00009E   297 _KBF	=	0x009e
+                           0000D2   298 _EECON	=	0x00d2
+                           0000E0   299 _ACC	=	0x00e0
+                           0000F0   300 _B	=	0x00f0
+                           000083   301 _DPH	=	0x0083
+                           000083   302 _DP0H	=	0x0083
+                           000082   303 _DPL	=	0x0082
+                           000082   304 _DP0L	=	0x0082
+                           0000A8   305 _IE	=	0x00a8
+                           0000B8   306 _IP	=	0x00b8
+                           000080   307 _P0	=	0x0080
+                           000090   308 _P1	=	0x0090
+                           0000A0   309 _P2	=	0x00a0
+                           0000B0   310 _P3	=	0x00b0
+                           000087   311 _PCON	=	0x0087
+                           0000D0   312 _PSW	=	0x00d0
+                           000099   313 _SBUF	=	0x0099
+                           000099   314 _SBUF0	=	0x0099
+                           000098   315 _SCON	=	0x0098
+                           000081   316 _SP	=	0x0081
+                           000088   317 _TCON	=	0x0088
+                           00008C   318 _TH0	=	0x008c
+                           00008D   319 _TH1	=	0x008d
+                           00008A   320 _TL0	=	0x008a
+                           00008B   321 _TL1	=	0x008b
+                           000089   322 _TMOD	=	0x0089
+                                    323 ;--------------------------------------------------------
+                                    324 ; special function bits
+                                    325 ;--------------------------------------------------------
+                                    326 	.area RSEG    (ABS,DATA)
+      000000                        327 	.org 0x0000
+                           0000AD   328 _ET2	=	0x00ad
+                           0000BD   329 _PT2	=	0x00bd
+                           0000C8   330 _T2CON_0	=	0x00c8
+                           0000C9   331 _T2CON_1	=	0x00c9
+                           0000CA   332 _T2CON_2	=	0x00ca
+                           0000CB   333 _T2CON_3	=	0x00cb
+                           0000CC   334 _T2CON_4	=	0x00cc
+                           0000CD   335 _T2CON_5	=	0x00cd
+                           0000CE   336 _T2CON_6	=	0x00ce
+                           0000CF   337 _T2CON_7	=	0x00cf
+                           0000C8   338 _CP_RL2	=	0x00c8
+                           0000C9   339 _C_T2	=	0x00c9
+                           0000CA   340 _TR2	=	0x00ca
+                           0000CB   341 _EXEN2	=	0x00cb
+                           0000CC   342 _TCLK	=	0x00cc
+                           0000CD   343 _RCLK	=	0x00cd
+                           0000CE   344 _EXF2	=	0x00ce
+                           0000CF   345 _TF2	=	0x00cf
+                           0000DF   346 _CF	=	0x00df
+                           0000DE   347 _CR	=	0x00de
+                           0000DC   348 _CCF4	=	0x00dc
+                           0000DB   349 _CCF3	=	0x00db
+                           0000DA   350 _CCF2	=	0x00da
+                           0000D9   351 _CCF1	=	0x00d9
+                           0000D8   352 _CCF0	=	0x00d8
+                           0000AE   353 _EC	=	0x00ae
+                           0000BE   354 _PPCL	=	0x00be
+                           0000BD   355 _PT2L	=	0x00bd
+                           0000BC   356 _PSL	=	0x00bc
+                           0000BB   357 _PT1L	=	0x00bb
+                           0000BA   358 _PX1L	=	0x00ba
+                           0000B9   359 _PT0L	=	0x00b9
+                           0000B8   360 _PX0L	=	0x00b8
+                           0000C0   361 _P4_0	=	0x00c0
+                           0000C1   362 _P4_1	=	0x00c1
+                           0000C2   363 _P4_2	=	0x00c2
+                           0000C3   364 _P4_3	=	0x00c3
+                           0000C4   365 _P4_4	=	0x00c4
+                           0000C5   366 _P4_5	=	0x00c5
+                           0000C6   367 _P4_6	=	0x00c6
+                           0000C7   368 _P4_7	=	0x00c7
+                           0000E8   369 _P5_0	=	0x00e8
+                           0000E9   370 _P5_1	=	0x00e9
+                           0000EA   371 _P5_2	=	0x00ea
+                           0000EB   372 _P5_3	=	0x00eb
+                           0000EC   373 _P5_4	=	0x00ec
+                           0000ED   374 _P5_5	=	0x00ed
+                           0000EE   375 _P5_6	=	0x00ee
+                           0000EF   376 _P5_7	=	0x00ef
+                           0000F0   377 _BREG_F0	=	0x00f0
+                           0000F1   378 _BREG_F1	=	0x00f1
+                           0000F2   379 _BREG_F2	=	0x00f2
+                           0000F3   380 _BREG_F3	=	0x00f3
+                           0000F4   381 _BREG_F4	=	0x00f4
+                           0000F5   382 _BREG_F5	=	0x00f5
+                           0000F6   383 _BREG_F6	=	0x00f6
+                           0000F7   384 _BREG_F7	=	0x00f7
+                           0000A8   385 _EX0	=	0x00a8
+                           0000A9   386 _ET0	=	0x00a9
+                           0000AA   387 _EX1	=	0x00aa
+                           0000AB   388 _ET1	=	0x00ab
+                           0000AC   389 _ES	=	0x00ac
+                           0000AF   390 _EA	=	0x00af
+                           0000B8   391 _PX0	=	0x00b8
+                           0000B9   392 _PT0	=	0x00b9
+                           0000BA   393 _PX1	=	0x00ba
+                           0000BB   394 _PT1	=	0x00bb
+                           0000BC   395 _PS	=	0x00bc
+                           000080   396 _P0_0	=	0x0080
+                           000081   397 _P0_1	=	0x0081
+                           000082   398 _P0_2	=	0x0082
+                           000083   399 _P0_3	=	0x0083
+                           000084   400 _P0_4	=	0x0084
+                           000085   401 _P0_5	=	0x0085
+                           000086   402 _P0_6	=	0x0086
+                           000087   403 _P0_7	=	0x0087
+                           000090   404 _P1_0	=	0x0090
+                           000091   405 _P1_1	=	0x0091
+                           000092   406 _P1_2	=	0x0092
+                           000093   407 _P1_3	=	0x0093
+                           000094   408 _P1_4	=	0x0094
+                           000095   409 _P1_5	=	0x0095
+                           000096   410 _P1_6	=	0x0096
+                           000097   411 _P1_7	=	0x0097
+                           0000A0   412 _P2_0	=	0x00a0
+                           0000A1   413 _P2_1	=	0x00a1
+                           0000A2   414 _P2_2	=	0x00a2
+                           0000A3   415 _P2_3	=	0x00a3
+                           0000A4   416 _P2_4	=	0x00a4
+                           0000A5   417 _P2_5	=	0x00a5
+                           0000A6   418 _P2_6	=	0x00a6
+                           0000A7   419 _P2_7	=	0x00a7
+                           0000B0   420 _P3_0	=	0x00b0
+                           0000B1   421 _P3_1	=	0x00b1
+                           0000B2   422 _P3_2	=	0x00b2
+                           0000B3   423 _P3_3	=	0x00b3
+                           0000B4   424 _P3_4	=	0x00b4
+                           0000B5   425 _P3_5	=	0x00b5
+                           0000B6   426 _P3_6	=	0x00b6
+                           0000B7   427 _P3_7	=	0x00b7
+                           0000B0   428 _RXD	=	0x00b0
+                           0000B0   429 _RXD0	=	0x00b0
+                           0000B1   430 _TXD	=	0x00b1
+                           0000B1   431 _TXD0	=	0x00b1
+                           0000B2   432 _INT0	=	0x00b2
+                           0000B3   433 _INT1	=	0x00b3
+                           0000B4   434 _T0	=	0x00b4
+                           0000B5   435 _T1	=	0x00b5
+                           0000B6   436 _WR	=	0x00b6
+                           0000B7   437 _RD	=	0x00b7
+                           0000D0   438 _P	=	0x00d0
+                           0000D1   439 _F1	=	0x00d1
+                           0000D2   440 _OV	=	0x00d2
+                           0000D3   441 _RS0	=	0x00d3
+                           0000D4   442 _RS1	=	0x00d4
+                           0000D5   443 _F0	=	0x00d5
+                           0000D6   444 _AC	=	0x00d6
+                           0000D7   445 _CY	=	0x00d7
+                           000098   446 _RI	=	0x0098
+                           000099   447 _TI	=	0x0099
+                           00009A   448 _RB8	=	0x009a
+                           00009B   449 _TB8	=	0x009b
+                           00009C   450 _REN	=	0x009c
+                           00009D   451 _SM2	=	0x009d
+                           00009E   452 _SM1	=	0x009e
+                           00009F   453 _SM0	=	0x009f
+                           000088   454 _IT0	=	0x0088
+                           000089   455 _IE0	=	0x0089
+                           00008A   456 _IT1	=	0x008a
+                           00008B   457 _IE1	=	0x008b
+                           00008C   458 _TR0	=	0x008c
+                           00008D   459 _TF0	=	0x008d
+                           00008E   460 _TR1	=	0x008e
+                           00008F   461 _TF1	=	0x008f
+                                    462 ;--------------------------------------------------------
+                                    463 ; overlayable register banks
+                                    464 ;--------------------------------------------------------
+                                    465 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        466 	.ds 8
+                                    467 ;--------------------------------------------------------
+                                    468 ; internal ram data
+                                    469 ;--------------------------------------------------------
+                                    470 	.area DSEG    (DATA)
+      000000                        471 _buffer0::
+      000000                        472 	.ds 3
+      000003                        473 _buffer1::
+      000003                        474 	.ds 3
+      000006                        475 _new_buffer::
+      000006                        476 	.ds 39
+      00002D                        477 _new_buffer_size::
+      00002D                        478 	.ds 26
+      000047                        479 _num::
+      000047                        480 	.ds 2
+      000049                        481 _buffer_0_and_1_size::
+      000049                        482 	.ds 2
+      00004B                        483 _other_buffer_size::
+      00004B                        484 	.ds 2
+      00004D                        485 _total_characters::
+      00004D                        486 	.ds 2
+      00004F                        487 _storage_characters_buffer_0::
+      00004F                        488 	.ds 2
+      000051                        489 _new_buffer_index::
+      000051                        490 	.ds 2
+      000053                        491 _print_buffer0_ascii_print_address_65536_57:
+      000053                        492 	.ds 1
+      000054                        493 _print_buffer0_hex_print_address_65536_67:
+      000054                        494 	.ds 1
+      000055                        495 _fsm_stay_65537_78:
+      000055                        496 	.ds 1
+      000056                        497 _fsm_idx_65538_88:
+      000056                        498 	.ds 2
+      000058                        499 _fsm_ch_131074_89:
+      000058                        500 	.ds 1
+      000059                        501 _fsm_i_327683_106:
+      000059                        502 	.ds 2
+      00005B                        503 _fsm_i_589828_114:
+      00005B                        504 	.ds 2
+      00005D                        505 _fsm_i_327683_116:
+      00005D                        506 	.ds 2
+      00005F                        507 _fsm_sloc0_1_0:
+      00005F                        508 	.ds 2
+      000061                        509 _fsm_sloc1_1_0:
+      000061                        510 	.ds 1
+                                    511 ;--------------------------------------------------------
+                                    512 ; overlayable items in internal ram
+                                    513 ;--------------------------------------------------------
+                                    514 	.area	OSEG    (OVR,DATA)
+                                    515 ;--------------------------------------------------------
+                                    516 ; indirectly addressable internal ram data
+                                    517 ;--------------------------------------------------------
+                                    518 	.area ISEG    (DATA)
+                                    519 ;--------------------------------------------------------
+                                    520 ; absolute internal ram data
+                                    521 ;--------------------------------------------------------
+                                    522 	.area IABS    (ABS,DATA)
+                                    523 	.area IABS    (ABS,DATA)
+                                    524 ;--------------------------------------------------------
+                                    525 ; bit data
+                                    526 ;--------------------------------------------------------
+                                    527 	.area BSEG    (BIT)
+                                    528 ;--------------------------------------------------------
+                                    529 ; paged external ram data
+                                    530 ;--------------------------------------------------------
+                                    531 	.area PSEG    (PAG,XDATA)
+                                    532 ;--------------------------------------------------------
+                                    533 ; external ram data
+                                    534 ;--------------------------------------------------------
+                                    535 	.area XSEG    (XDATA)
+                                    536 ;--------------------------------------------------------
+                                    537 ; absolute external ram data
+                                    538 ;--------------------------------------------------------
+                                    539 	.area XABS    (ABS,XDATA)
+                                    540 ;--------------------------------------------------------
+                                    541 ; external initialized ram data
+                                    542 ;--------------------------------------------------------
+                                    543 	.area XISEG   (XDATA)
+                                    544 	.area HOME    (CODE)
+                                    545 	.area GSINIT0 (CODE)
+                                    546 	.area GSINIT1 (CODE)
+                                    547 	.area GSINIT2 (CODE)
+                                    548 	.area GSINIT3 (CODE)
+                                    549 	.area GSINIT4 (CODE)
+                                    550 	.area GSINIT5 (CODE)
+                                    551 	.area GSINIT  (CODE)
+                                    552 	.area GSFINAL (CODE)
+                                    553 	.area CSEG    (CODE)
+                                    554 ;--------------------------------------------------------
+                                    555 ; global & static initialisations
+                                    556 ;--------------------------------------------------------
+                                    557 	.area HOME    (CODE)
+                                    558 	.area GSINIT  (CODE)
+                                    559 	.area GSFINAL (CODE)
+                                    560 	.area GSINIT  (CODE)
+                                    561 ;	fsm.c:57: char* buffer0 = NULL;
+      000000 E4               [12]  562 	clr	a
+      000001 F5*00            [12]  563 	mov	_buffer0,a
+      000003 F5*01            [12]  564 	mov	(_buffer0 + 1),a
+                                    565 ;	1-genFromRTrack replaced	mov	(_buffer0 + 2),#0x00
+      000005 F5*02            [12]  566 	mov	(_buffer0 + 2),a
+                                    567 ;	fsm.c:58: char* buffer1 = NULL;
+      000007 F5*03            [12]  568 	mov	_buffer1,a
+      000009 F5*04            [12]  569 	mov	(_buffer1 + 1),a
+                                    570 ;	1-genFromRTrack replaced	mov	(_buffer1 + 2),#0x00
+      00000B F5*05            [12]  571 	mov	(_buffer1 + 2),a
+                                    572 ;	fsm.c:63: int num = 0;
+      00000D F5*47            [12]  573 	mov	_num,a
+      00000F F5*48            [12]  574 	mov	(_num + 1),a
+                                    575 ;	fsm.c:64: int buffer_0_and_1_size = 0;
+      000011 F5*49            [12]  576 	mov	_buffer_0_and_1_size,a
+      000013 F5*4A            [12]  577 	mov	(_buffer_0_and_1_size + 1),a
+                                    578 ;	fsm.c:66: int other_buffer_size = 0;
+      000015 F5*4B            [12]  579 	mov	_other_buffer_size,a
+      000017 F5*4C            [12]  580 	mov	(_other_buffer_size + 1),a
+                                    581 ;	fsm.c:69: int total_characters = 0;  // storage + command characters
+      000019 F5*4D            [12]  582 	mov	_total_characters,a
+      00001B F5*4E            [12]  583 	mov	(_total_characters + 1),a
+                                    584 ;	fsm.c:72: int storage_characters_buffer_0 = 0;
+      00001D F5*4F            [12]  585 	mov	_storage_characters_buffer_0,a
+      00001F F5*50            [12]  586 	mov	(_storage_characters_buffer_0 + 1),a
+                                    587 ;	fsm.c:74: int new_buffer_index = 0;
+      000021 F5*51            [12]  588 	mov	_new_buffer_index,a
+      000023 F5*52            [12]  589 	mov	(_new_buffer_index + 1),a
+                                    590 ;--------------------------------------------------------
+                                    591 ; Home
+                                    592 ;--------------------------------------------------------
+                                    593 	.area HOME    (CODE)
+                                    594 	.area HOME    (CODE)
+                                    595 ;--------------------------------------------------------
+                                    596 ; code
+                                    597 ;--------------------------------------------------------
+                                    598 	.area CSEG    (CODE)
+                                    599 ;------------------------------------------------------------
+                                    600 ;Allocation info for local variables in function 'dataout'
+                                    601 ;------------------------------------------------------------
+                                    602 ;data                      Allocated to registers r7 
+                                    603 ;address                   Allocated to registers 
+                                    604 ;------------------------------------------------------------
+                                    605 ;	fsm.c:83: void dataout(uint8_t data)
+                                    606 ;	-----------------------------------------
+                                    607 ;	 function dataout
+                                    608 ;	-----------------------------------------
+      000000                        609 _dataout:
+                           000007   610 	ar7 = 0x07
+                           000006   611 	ar6 = 0x06
+                           000005   612 	ar5 = 0x05
+                           000004   613 	ar4 = 0x04
+                           000003   614 	ar3 = 0x03
+                           000002   615 	ar2 = 0x02
+                           000001   616 	ar1 = 0x01
+                           000000   617 	ar0 = 0x00
+      000000 AF 82            [24]  618 	mov	r7,dpl
+                                    619 ;	fsm.c:87: *address = data;
+      000002 90 90 00         [24]  620 	mov	dptr,#0x9000
+      000005 75 F0 00         [24]  621 	mov	b,#0x00
+      000008 EF               [12]  622 	mov	a,r7
+                                    623 ;	fsm.c:88: }
+      000009 02r00r00         [24]  624 	ljmp	__gptrput
+                                    625 ;------------------------------------------------------------
+                                    626 ;Allocation info for local variables in function '_sdcc_external_startup'
+                                    627 ;------------------------------------------------------------
+                                    628 ;	fsm.c:90: _sdcc_external_startup()
+                                    629 ;	-----------------------------------------
+                                    630 ;	 function _sdcc_external_startup
+                                    631 ;	-----------------------------------------
+      00000C                        632 __sdcc_external_startup:
+                                    633 ;	fsm.c:92: AUXR |= (XRS1 | XRS0);
+      00000C 43 8E 0C         [24]  634 	orl	_AUXR,#0x0c
+                                    635 ;	fsm.c:94: return 0;
+      00000F 90 00 00         [24]  636 	mov	dptr,#0x0000
+                                    637 ;	fsm.c:95: }
+      000012 22               [24]  638 	ret
+                                    639 ;------------------------------------------------------------
+                                    640 ;Allocation info for local variables in function 'print_address_in_hex'
+                                    641 ;------------------------------------------------------------
+                                    642 ;address                   Allocated to registers r6 r7 
+                                    643 ;------------------------------------------------------------
+                                    644 ;	fsm.c:97: void print_address_in_hex(int address)
+                                    645 ;	-----------------------------------------
+                                    646 ;	 function print_address_in_hex
+                                    647 ;	-----------------------------------------
+      000013                        648 _print_address_in_hex:
+      000013 AE 82            [24]  649 	mov	r6,dpl
+      000015 AF 83            [24]  650 	mov	r7,dph
+                                    651 ;	fsm.c:99: if(address > 4095)
+      000017 C3               [12]  652 	clr	c
+      000018 74 FF            [12]  653 	mov	a,#0xff
+      00001A 9E               [12]  654 	subb	a,r6
+      00001B 74 8F            [12]  655 	mov	a,#(0x0f ^ 0x80)
+      00001D 8F F0            [24]  656 	mov	b,r7
+      00001F 63 F0 80         [24]  657 	xrl	b,#0x80
+      000022 95 F0            [12]  658 	subb	a,b
+      000024 50 16            [24]  659 	jnc	00111$
+                                    660 ;	fsm.c:101: printf_tiny("%x", address);
+      000026 C0 06            [24]  661 	push	ar6
+      000028 C0 07            [24]  662 	push	ar7
+      00002A 74r00            [12]  663 	mov	a,#___str_0
+      00002C C0 E0            [24]  664 	push	acc
+      00002E 74s00            [12]  665 	mov	a,#(___str_0 >> 8)
+      000030 C0 E0            [24]  666 	push	acc
+      000032 12r00r00         [24]  667 	lcall	_printf_tiny
+      000035 E5 81            [12]  668 	mov	a,sp
+      000037 24 FC            [12]  669 	add	a,#0xfc
+      000039 F5 81            [12]  670 	mov	sp,a
+      00003B 22               [24]  671 	ret
+      00003C                        672 00111$:
+                                    673 ;	fsm.c:103: else if (address > 255)
+      00003C C3               [12]  674 	clr	c
+      00003D 74 FF            [12]  675 	mov	a,#0xff
+      00003F 9E               [12]  676 	subb	a,r6
+      000040 74 80            [12]  677 	mov	a,#(0x00 ^ 0x80)
+      000042 8F F0            [24]  678 	mov	b,r7
+      000044 63 F0 80         [24]  679 	xrl	b,#0x80
+      000047 95 F0            [12]  680 	subb	a,b
+      000049 50 16            [24]  681 	jnc	00108$
+                                    682 ;	fsm.c:105: printf_tiny("0%x", address);
+      00004B C0 06            [24]  683 	push	ar6
+      00004D C0 07            [24]  684 	push	ar7
+      00004F 74r03            [12]  685 	mov	a,#___str_1
+      000051 C0 E0            [24]  686 	push	acc
+      000053 74s00            [12]  687 	mov	a,#(___str_1 >> 8)
+      000055 C0 E0            [24]  688 	push	acc
+      000057 12r00r00         [24]  689 	lcall	_printf_tiny
+      00005A E5 81            [12]  690 	mov	a,sp
+      00005C 24 FC            [12]  691 	add	a,#0xfc
+      00005E F5 81            [12]  692 	mov	sp,a
+      000060 22               [24]  693 	ret
+      000061                        694 00108$:
+                                    695 ;	fsm.c:107: else if (address > 15)
+      000061 C3               [12]  696 	clr	c
+      000062 74 0F            [12]  697 	mov	a,#0x0f
+      000064 9E               [12]  698 	subb	a,r6
+      000065 74 80            [12]  699 	mov	a,#(0x00 ^ 0x80)
+      000067 8F F0            [24]  700 	mov	b,r7
+      000069 63 F0 80         [24]  701 	xrl	b,#0x80
+      00006C 95 F0            [12]  702 	subb	a,b
+      00006E 50 16            [24]  703 	jnc	00105$
+                                    704 ;	fsm.c:109: printf_tiny("00%x", address);
+      000070 C0 06            [24]  705 	push	ar6
+      000072 C0 07            [24]  706 	push	ar7
+      000074 74r07            [12]  707 	mov	a,#___str_2
+      000076 C0 E0            [24]  708 	push	acc
+      000078 74s00            [12]  709 	mov	a,#(___str_2 >> 8)
+      00007A C0 E0            [24]  710 	push	acc
+      00007C 12r00r00         [24]  711 	lcall	_printf_tiny
+      00007F E5 81            [12]  712 	mov	a,sp
+      000081 24 FC            [12]  713 	add	a,#0xfc
+      000083 F5 81            [12]  714 	mov	sp,a
+      000085 22               [24]  715 	ret
+      000086                        716 00105$:
+                                    717 ;	fsm.c:111: else if (address <= 15 && address >= 0)
+      000086 C3               [12]  718 	clr	c
+      000087 74 0F            [12]  719 	mov	a,#0x0f
+      000089 9E               [12]  720 	subb	a,r6
+      00008A 74 80            [12]  721 	mov	a,#(0x00 ^ 0x80)
+      00008C 8F F0            [24]  722 	mov	b,r7
+      00008E 63 F0 80         [24]  723 	xrl	b,#0x80
+      000091 95 F0            [12]  724 	subb	a,b
+      000093 40 19            [24]  725 	jc	00113$
+      000095 EF               [12]  726 	mov	a,r7
+      000096 20 E7 15         [24]  727 	jb	acc.7,00113$
+                                    728 ;	fsm.c:113: printf_tiny("000%x", address);
+      000099 C0 06            [24]  729 	push	ar6
+      00009B C0 07            [24]  730 	push	ar7
+      00009D 74r0C            [12]  731 	mov	a,#___str_3
+      00009F C0 E0            [24]  732 	push	acc
+      0000A1 74s00            [12]  733 	mov	a,#(___str_3 >> 8)
+      0000A3 C0 E0            [24]  734 	push	acc
+      0000A5 12r00r00         [24]  735 	lcall	_printf_tiny
+      0000A8 E5 81            [12]  736 	mov	a,sp
+      0000AA 24 FC            [12]  737 	add	a,#0xfc
+      0000AC F5 81            [12]  738 	mov	sp,a
+      0000AE                        739 00113$:
+                                    740 ;	fsm.c:115: }
+      0000AE 22               [24]  741 	ret
+                                    742 ;------------------------------------------------------------
+                                    743 ;Allocation info for local variables in function 'print_buffer0_ascii'
+                                    744 ;------------------------------------------------------------
+                                    745 ;print_address             Allocated with name '_print_buffer0_ascii_print_address_65536_57'
+                                    746 ;temp_buffer0              Allocated to registers 
+                                    747 ;itr                       Allocated to registers r6 r7 
+                                    748 ;temp                      Allocated to registers 
+                                    749 ;------------------------------------------------------------
+                                    750 ;	fsm.c:117: void print_buffer0_ascii()
+                                    751 ;	-----------------------------------------
+                                    752 ;	 function print_buffer0_ascii
+                                    753 ;	-----------------------------------------
+      0000AF                        754 _print_buffer0_ascii:
+                                    755 ;	fsm.c:119: bool print_address = true;
+      0000AF 75*53 01         [24]  756 	mov	_print_buffer0_ascii_print_address_65536_57,#0x01
+                                    757 ;	fsm.c:121: char** temp_buffer0 = new_buffer;
+                                    758 ;	fsm.c:123: for(int itr = 0; itr < buffer_0_and_1_size; itr++)
+      0000B2 7E 00            [12]  759 	mov	r6,#0x00
+      0000B4 7F 00            [12]  760 	mov	r7,#0x00
+      0000B6                        761 00114$:
+      0000B6 C3               [12]  762 	clr	c
+      0000B7 EE               [12]  763 	mov	a,r6
+      0000B8 95*49            [12]  764 	subb	a,_buffer_0_and_1_size
+      0000BA EF               [12]  765 	mov	a,r7
+      0000BB 64 80            [12]  766 	xrl	a,#0x80
+      0000BD 85*4A F0         [24]  767 	mov	b,(_buffer_0_and_1_size + 1)
+      0000C0 63 F0 80         [24]  768 	xrl	b,#0x80
+      0000C3 95 F0            [12]  769 	subb	a,b
+      0000C5 40 01            [24]  770 	jc	00143$
+      0000C7 22               [24]  771 	ret
+      0000C8                        772 00143$:
+                                    773 ;	fsm.c:126: if(print_address)
+      0000C8 E5*53            [12]  774 	mov	a,_print_buffer0_ascii_print_address_65536_57
+      0000CA 60 29            [24]  775 	jz	00102$
+                                    776 ;	fsm.c:128: print_address = false;
+      0000CC 75*53 00         [24]  777 	mov	_print_buffer0_ascii_print_address_65536_57,#0x00
+                                    778 ;	fsm.c:132: temp = (int) (buffer0 + itr);
+      0000CF EE               [12]  779 	mov	a,r6
+      0000D0 25*00            [12]  780 	add	a,_buffer0
+      0000D2 FB               [12]  781 	mov	r3,a
+      0000D3 EF               [12]  782 	mov	a,r7
+      0000D4 35*01            [12]  783 	addc	a,(_buffer0 + 1)
+      0000D6 FC               [12]  784 	mov	r4,a
+      0000D7 8B 82            [24]  785 	mov	dpl,r3
+      0000D9 8C 83            [24]  786 	mov	dph,r4
+                                    787 ;	fsm.c:134: print_address_in_hex(temp);
+      0000DB C0 07            [24]  788 	push	ar7
+      0000DD C0 06            [24]  789 	push	ar6
+      0000DF 12r00r13         [24]  790 	lcall	_print_address_in_hex
+                                    791 ;	fsm.c:136: printf_tiny(":");
+      0000E2 74r12            [12]  792 	mov	a,#___str_4
+      0000E4 C0 E0            [24]  793 	push	acc
+      0000E6 74s00            [12]  794 	mov	a,#(___str_4 >> 8)
+      0000E8 C0 E0            [24]  795 	push	acc
+      0000EA 12r00r00         [24]  796 	lcall	_printf_tiny
+      0000ED 15 81            [12]  797 	dec	sp
+      0000EF 15 81            [12]  798 	dec	sp
+      0000F1 D0 06            [24]  799 	pop	ar6
+      0000F3 D0 07            [24]  800 	pop	ar7
+      0000F5                        801 00102$:
+                                    802 ;	fsm.c:139: if(temp_buffer0[0][itr] == '0' ||
+      0000F5 AB*06            [24]  803 	mov	r3,(_new_buffer + 0)
+      0000F7 AC*07            [24]  804 	mov	r4,(_new_buffer + 1)
+      0000F9 AD*08            [24]  805 	mov	r5,(_new_buffer + 2)
+      0000FB EE               [12]  806 	mov	a,r6
+      0000FC 2B               [12]  807 	add	a,r3
+      0000FD FB               [12]  808 	mov	r3,a
+      0000FE EF               [12]  809 	mov	a,r7
+      0000FF 3C               [12]  810 	addc	a,r4
+      000100 FC               [12]  811 	mov	r4,a
+      000101 8B 82            [24]  812 	mov	dpl,r3
+      000103 8C 83            [24]  813 	mov	dph,r4
+      000105 8D F0            [24]  814 	mov	b,r5
+      000107 12r00r00         [24]  815 	lcall	__gptrget
+      00010A FD               [12]  816 	mov	r5,a
+      00010B BD 30 02         [24]  817 	cjne	r5,#0x30,00145$
+      00010E 80 03            [24]  818 	sjmp	00106$
+      000110                        819 00145$:
+                                    820 ;	fsm.c:140: temp_buffer0[0][itr] == '\0')
+      000110 ED               [12]  821 	mov	a,r5
+      000111 70 19            [24]  822 	jnz	00107$
+      000113                        823 00106$:
+                                    824 ;	fsm.c:142: printf_tiny(" 00");
+      000113 C0 07            [24]  825 	push	ar7
+      000115 C0 06            [24]  826 	push	ar6
+      000117 74r14            [12]  827 	mov	a,#___str_5
+      000119 C0 E0            [24]  828 	push	acc
+      00011B 74s00            [12]  829 	mov	a,#(___str_5 >> 8)
+      00011D C0 E0            [24]  830 	push	acc
+      00011F 12r00r00         [24]  831 	lcall	_printf_tiny
+      000122 15 81            [12]  832 	dec	sp
+      000124 15 81            [12]  833 	dec	sp
+      000126 D0 06            [24]  834 	pop	ar6
+      000128 D0 07            [24]  835 	pop	ar7
+      00012A 80 47            [24]  836 	sjmp	00108$
+      00012C                        837 00107$:
+                                    838 ;	fsm.c:146: if(temp_buffer0[0][itr] <= 9)
+      00012C ED               [12]  839 	mov	a,r5
+      00012D 24 F6            [12]  840 	add	a,#0xff - 0x09
+      00012F 40 23            [24]  841 	jc	00104$
+                                    842 ;	fsm.c:148: printf_tiny(" 0%d", temp_buffer0[0][itr]);
+      000131 8D 03            [24]  843 	mov	ar3,r5
+      000133 7C 00            [12]  844 	mov	r4,#0x00
+      000135 C0 07            [24]  845 	push	ar7
+      000137 C0 06            [24]  846 	push	ar6
+      000139 C0 03            [24]  847 	push	ar3
+      00013B C0 04            [24]  848 	push	ar4
+      00013D 74r18            [12]  849 	mov	a,#___str_6
+      00013F C0 E0            [24]  850 	push	acc
+      000141 74s00            [12]  851 	mov	a,#(___str_6 >> 8)
+      000143 C0 E0            [24]  852 	push	acc
+      000145 12r00r00         [24]  853 	lcall	_printf_tiny
+      000148 E5 81            [12]  854 	mov	a,sp
+      00014A 24 FC            [12]  855 	add	a,#0xfc
+      00014C F5 81            [12]  856 	mov	sp,a
+      00014E D0 06            [24]  857 	pop	ar6
+      000150 D0 07            [24]  858 	pop	ar7
+      000152 80 1F            [24]  859 	sjmp	00108$
+      000154                        860 00104$:
+                                    861 ;	fsm.c:152: printf_tiny(" %d", temp_buffer0[0][itr]);
+      000154 7C 00            [12]  862 	mov	r4,#0x00
+      000156 C0 07            [24]  863 	push	ar7
+      000158 C0 06            [24]  864 	push	ar6
+      00015A C0 05            [24]  865 	push	ar5
+      00015C C0 04            [24]  866 	push	ar4
+      00015E 74r1D            [12]  867 	mov	a,#___str_7
+      000160 C0 E0            [24]  868 	push	acc
+      000162 74s00            [12]  869 	mov	a,#(___str_7 >> 8)
+      000164 C0 E0            [24]  870 	push	acc
+      000166 12r00r00         [24]  871 	lcall	_printf_tiny
+      000169 E5 81            [12]  872 	mov	a,sp
+      00016B 24 FC            [12]  873 	add	a,#0xfc
+      00016D F5 81            [12]  874 	mov	sp,a
+      00016F D0 06            [24]  875 	pop	ar6
+      000171 D0 07            [24]  876 	pop	ar7
+      000173                        877 00108$:
+                                    878 ;	fsm.c:156: if((itr + 1) % 32 == 0)
+      000173 8E 82            [24]  879 	mov	dpl,r6
+      000175 8F 83            [24]  880 	mov	dph,r7
+      000177 A3               [24]  881 	inc	dptr
+      000178 75*00 20         [24]  882 	mov	__modsint_PARM_2,#0x20
+      00017B 75*01 00         [24]  883 	mov	(__modsint_PARM_2 + 1),#0x00
+      00017E C0 07            [24]  884 	push	ar7
+      000180 C0 06            [24]  885 	push	ar6
+      000182 12r00r00         [24]  886 	lcall	__modsint
+      000185 E5 82            [12]  887 	mov	a,dpl
+      000187 85 83 F0         [24]  888 	mov	b,dph
+      00018A D0 06            [24]  889 	pop	ar6
+      00018C D0 07            [24]  890 	pop	ar7
+      00018E 45 F0            [12]  891 	orl	a,b
+      000190 70 1A            [24]  892 	jnz	00115$
+                                    893 ;	fsm.c:158: printf_tiny("\n\r");
+      000192 C0 07            [24]  894 	push	ar7
+      000194 C0 06            [24]  895 	push	ar6
+      000196 74r21            [12]  896 	mov	a,#___str_8
+      000198 C0 E0            [24]  897 	push	acc
+      00019A 74s00            [12]  898 	mov	a,#(___str_8 >> 8)
+      00019C C0 E0            [24]  899 	push	acc
+      00019E 12r00r00         [24]  900 	lcall	_printf_tiny
+      0001A1 15 81            [12]  901 	dec	sp
+      0001A3 15 81            [12]  902 	dec	sp
+      0001A5 D0 06            [24]  903 	pop	ar6
+      0001A7 D0 07            [24]  904 	pop	ar7
+                                    905 ;	fsm.c:160: print_address = true;
+      0001A9 75*53 01         [24]  906 	mov	_print_buffer0_ascii_print_address_65536_57,#0x01
+      0001AC                        907 00115$:
+                                    908 ;	fsm.c:123: for(int itr = 0; itr < buffer_0_and_1_size; itr++)
+      0001AC 0E               [12]  909 	inc	r6
+      0001AD BE 00 01         [24]  910 	cjne	r6,#0x00,00149$
+      0001B0 0F               [12]  911 	inc	r7
+      0001B1                        912 00149$:
+                                    913 ;	fsm.c:163: }
+      0001B1 02r00rB6         [24]  914 	ljmp	00114$
+                                    915 ;------------------------------------------------------------
+                                    916 ;Allocation info for local variables in function 'print_buffer0_hex'
+                                    917 ;------------------------------------------------------------
+                                    918 ;print_address             Allocated with name '_print_buffer0_hex_print_address_65536_67'
+                                    919 ;temp_buffer0              Allocated to registers 
+                                    920 ;itr                       Allocated to registers r6 r7 
+                                    921 ;temp                      Allocated to registers 
+                                    922 ;------------------------------------------------------------
+                                    923 ;	fsm.c:165: void print_buffer0_hex()
+                                    924 ;	-----------------------------------------
+                                    925 ;	 function print_buffer0_hex
+                                    926 ;	-----------------------------------------
+      0001B4                        927 _print_buffer0_hex:
+                                    928 ;	fsm.c:167: bool print_address = true;
+      0001B4 75*54 01         [24]  929 	mov	_print_buffer0_hex_print_address_65536_67,#0x01
+                                    930 ;	fsm.c:169: char** temp_buffer0 = new_buffer;
+                                    931 ;	fsm.c:171: for(int itr = 0; itr < buffer_0_and_1_size; itr++)
+      0001B7 7E 00            [12]  932 	mov	r6,#0x00
+      0001B9 7F 00            [12]  933 	mov	r7,#0x00
+      0001BB                        934 00114$:
+      0001BB C3               [12]  935 	clr	c
+      0001BC EE               [12]  936 	mov	a,r6
+      0001BD 95*49            [12]  937 	subb	a,_buffer_0_and_1_size
+      0001BF EF               [12]  938 	mov	a,r7
+      0001C0 64 80            [12]  939 	xrl	a,#0x80
+      0001C2 85*4A F0         [24]  940 	mov	b,(_buffer_0_and_1_size + 1)
+      0001C5 63 F0 80         [24]  941 	xrl	b,#0x80
+      0001C8 95 F0            [12]  942 	subb	a,b
+      0001CA 40 01            [24]  943 	jc	00143$
+      0001CC 22               [24]  944 	ret
+      0001CD                        945 00143$:
+                                    946 ;	fsm.c:174: if(print_address)
+      0001CD E5*54            [12]  947 	mov	a,_print_buffer0_hex_print_address_65536_67
+      0001CF 60 29            [24]  948 	jz	00102$
+                                    949 ;	fsm.c:176: print_address = false;
+      0001D1 75*54 00         [24]  950 	mov	_print_buffer0_hex_print_address_65536_67,#0x00
+                                    951 ;	fsm.c:180: temp = (int) (buffer0+itr);
+      0001D4 EE               [12]  952 	mov	a,r6
+      0001D5 25*00            [12]  953 	add	a,_buffer0
+      0001D7 FB               [12]  954 	mov	r3,a
+      0001D8 EF               [12]  955 	mov	a,r7
+      0001D9 35*01            [12]  956 	addc	a,(_buffer0 + 1)
+      0001DB FC               [12]  957 	mov	r4,a
+      0001DC 8B 82            [24]  958 	mov	dpl,r3
+      0001DE 8C 83            [24]  959 	mov	dph,r4
+                                    960 ;	fsm.c:182: print_address_in_hex(temp);
+      0001E0 C0 07            [24]  961 	push	ar7
+      0001E2 C0 06            [24]  962 	push	ar6
+      0001E4 12r00r13         [24]  963 	lcall	_print_address_in_hex
+                                    964 ;	fsm.c:184: printf_tiny(":");
+      0001E7 74r12            [12]  965 	mov	a,#___str_4
+      0001E9 C0 E0            [24]  966 	push	acc
+      0001EB 74s00            [12]  967 	mov	a,#(___str_4 >> 8)
+      0001ED C0 E0            [24]  968 	push	acc
+      0001EF 12r00r00         [24]  969 	lcall	_printf_tiny
+      0001F2 15 81            [12]  970 	dec	sp
+      0001F4 15 81            [12]  971 	dec	sp
+      0001F6 D0 06            [24]  972 	pop	ar6
+      0001F8 D0 07            [24]  973 	pop	ar7
+      0001FA                        974 00102$:
+                                    975 ;	fsm.c:187: if(temp_buffer0[0][itr] == '0' || temp_buffer0[0][itr]  == '\0')
+      0001FA AB*06            [24]  976 	mov	r3,(_new_buffer + 0)
+      0001FC AC*07            [24]  977 	mov	r4,(_new_buffer + 1)
+      0001FE AD*08            [24]  978 	mov	r5,(_new_buffer + 2)
+      000200 EE               [12]  979 	mov	a,r6
+      000201 2B               [12]  980 	add	a,r3
+      000202 FB               [12]  981 	mov	r3,a
+      000203 EF               [12]  982 	mov	a,r7
+      000204 3C               [12]  983 	addc	a,r4
+      000205 FC               [12]  984 	mov	r4,a
+      000206 8B 82            [24]  985 	mov	dpl,r3
+      000208 8C 83            [24]  986 	mov	dph,r4
+      00020A 8D F0            [24]  987 	mov	b,r5
+      00020C 12r00r00         [24]  988 	lcall	__gptrget
+      00020F FD               [12]  989 	mov	r5,a
+      000210 BD 30 02         [24]  990 	cjne	r5,#0x30,00145$
+      000213 80 03            [24]  991 	sjmp	00106$
+      000215                        992 00145$:
+      000215 ED               [12]  993 	mov	a,r5
+      000216 70 19            [24]  994 	jnz	00107$
+      000218                        995 00106$:
+                                    996 ;	fsm.c:189: printf_tiny(" 00");
+      000218 C0 07            [24]  997 	push	ar7
+      00021A C0 06            [24]  998 	push	ar6
+      00021C 74r14            [12]  999 	mov	a,#___str_5
+      00021E C0 E0            [24] 1000 	push	acc
+      000220 74s00            [12] 1001 	mov	a,#(___str_5 >> 8)
+      000222 C0 E0            [24] 1002 	push	acc
+      000224 12r00r00         [24] 1003 	lcall	_printf_tiny
+      000227 15 81            [12] 1004 	dec	sp
+      000229 15 81            [12] 1005 	dec	sp
+      00022B D0 06            [24] 1006 	pop	ar6
+      00022D D0 07            [24] 1007 	pop	ar7
+      00022F 80 47            [24] 1008 	sjmp	00108$
+      000231                       1009 00107$:
+                                   1010 ;	fsm.c:193: if(temp_buffer0[0][itr] <= 9)
+      000231 ED               [12] 1011 	mov	a,r5
+      000232 24 F6            [12] 1012 	add	a,#0xff - 0x09
+      000234 40 23            [24] 1013 	jc	00104$
+                                   1014 ;	fsm.c:195: printf_tiny(" 0%x", temp_buffer0[0][itr]);
+      000236 8D 03            [24] 1015 	mov	ar3,r5
+      000238 7C 00            [12] 1016 	mov	r4,#0x00
+      00023A C0 07            [24] 1017 	push	ar7
+      00023C C0 06            [24] 1018 	push	ar6
+      00023E C0 03            [24] 1019 	push	ar3
+      000240 C0 04            [24] 1020 	push	ar4
+      000242 74r24            [12] 1021 	mov	a,#___str_9
+      000244 C0 E0            [24] 1022 	push	acc
+      000246 74s00            [12] 1023 	mov	a,#(___str_9 >> 8)
+      000248 C0 E0            [24] 1024 	push	acc
+      00024A 12r00r00         [24] 1025 	lcall	_printf_tiny
+      00024D E5 81            [12] 1026 	mov	a,sp
+      00024F 24 FC            [12] 1027 	add	a,#0xfc
+      000251 F5 81            [12] 1028 	mov	sp,a
+      000253 D0 06            [24] 1029 	pop	ar6
+      000255 D0 07            [24] 1030 	pop	ar7
+      000257 80 1F            [24] 1031 	sjmp	00108$
+      000259                       1032 00104$:
+                                   1033 ;	fsm.c:199: printf_tiny(" %x", temp_buffer0[0][itr]);
+      000259 7C 00            [12] 1034 	mov	r4,#0x00
+      00025B C0 07            [24] 1035 	push	ar7
+      00025D C0 06            [24] 1036 	push	ar6
+      00025F C0 05            [24] 1037 	push	ar5
+      000261 C0 04            [24] 1038 	push	ar4
+      000263 74r29            [12] 1039 	mov	a,#___str_10
+      000265 C0 E0            [24] 1040 	push	acc
+      000267 74s00            [12] 1041 	mov	a,#(___str_10 >> 8)
+      000269 C0 E0            [24] 1042 	push	acc
+      00026B 12r00r00         [24] 1043 	lcall	_printf_tiny
+      00026E E5 81            [12] 1044 	mov	a,sp
+      000270 24 FC            [12] 1045 	add	a,#0xfc
+      000272 F5 81            [12] 1046 	mov	sp,a
+      000274 D0 06            [24] 1047 	pop	ar6
+      000276 D0 07            [24] 1048 	pop	ar7
+      000278                       1049 00108$:
+                                   1050 ;	fsm.c:203: if((itr+1) % 16 == 0)
+      000278 8E 82            [24] 1051 	mov	dpl,r6
+      00027A 8F 83            [24] 1052 	mov	dph,r7
+      00027C A3               [24] 1053 	inc	dptr
+      00027D 75*00 10         [24] 1054 	mov	__modsint_PARM_2,#0x10
+      000280 75*01 00         [24] 1055 	mov	(__modsint_PARM_2 + 1),#0x00
+      000283 C0 07            [24] 1056 	push	ar7
+      000285 C0 06            [24] 1057 	push	ar6
+      000287 12r00r00         [24] 1058 	lcall	__modsint
+      00028A E5 82            [12] 1059 	mov	a,dpl
+      00028C 85 83 F0         [24] 1060 	mov	b,dph
+      00028F D0 06            [24] 1061 	pop	ar6
+      000291 D0 07            [24] 1062 	pop	ar7
+      000293 45 F0            [12] 1063 	orl	a,b
+      000295 70 1A            [24] 1064 	jnz	00115$
+                                   1065 ;	fsm.c:205: printf_tiny("\n\r");
+      000297 C0 07            [24] 1066 	push	ar7
+      000299 C0 06            [24] 1067 	push	ar6
+      00029B 74r21            [12] 1068 	mov	a,#___str_8
+      00029D C0 E0            [24] 1069 	push	acc
+      00029F 74s00            [12] 1070 	mov	a,#(___str_8 >> 8)
+      0002A1 C0 E0            [24] 1071 	push	acc
+      0002A3 12r00r00         [24] 1072 	lcall	_printf_tiny
+      0002A6 15 81            [12] 1073 	dec	sp
+      0002A8 15 81            [12] 1074 	dec	sp
+      0002AA D0 06            [24] 1075 	pop	ar6
+      0002AC D0 07            [24] 1076 	pop	ar7
+                                   1077 ;	fsm.c:207: print_address = true;
+      0002AE 75*54 01         [24] 1078 	mov	_print_buffer0_hex_print_address_65536_67,#0x01
+      0002B1                       1079 00115$:
+                                   1080 ;	fsm.c:171: for(int itr = 0; itr < buffer_0_and_1_size; itr++)
+      0002B1 0E               [12] 1081 	inc	r6
+      0002B2 BE 00 01         [24] 1082 	cjne	r6,#0x00,00149$
+      0002B5 0F               [12] 1083 	inc	r7
+      0002B6                       1084 00149$:
+                                   1085 ;	fsm.c:210: }
+      0002B6 02r01rBB         [24] 1086 	ljmp	00114$
+                                   1087 ;------------------------------------------------------------
+                                   1088 ;Allocation info for local variables in function 'fsm'
+                                   1089 ;------------------------------------------------------------
+                                   1090 ;stay                      Allocated with name '_fsm_stay_65537_78'
+                                   1091 ;i                         Allocated to registers r6 r7 
+                                   1092 ;i                         Allocated to registers r6 r7 
+                                   1093 ;idx                       Allocated with name '_fsm_idx_65538_88'
+                                   1094 ;itr                       Allocated to registers 
+                                   1095 ;buffer_number             Allocated to registers r6 r7 
+                                   1096 ;ch                        Allocated with name '_fsm_ch_131074_89'
+                                   1097 ;character_type            Allocated to registers r2 r3 
+                                   1098 ;temp_buffer0              Allocated to registers 
+                                   1099 ;character                 Allocated to registers r4 
+                                   1100 ;temp                      Allocated to registers r3 r5 
+                                   1101 ;i                         Allocated with name '_fsm_i_327683_106'
+                                   1102 ;temp                      Allocated to registers r3 r6 
+                                   1103 ;i                         Allocated with name '_fsm_i_589828_114'
+                                   1104 ;i                         Allocated with name '_fsm_i_327683_116'
+                                   1105 ;sloc0                     Allocated with name '_fsm_sloc0_1_0'
+                                   1106 ;sloc1                     Allocated with name '_fsm_sloc1_1_0'
+                                   1107 ;------------------------------------------------------------
+                                   1108 ;	fsm.c:212: void fsm()
+                                   1109 ;	-----------------------------------------
+                                   1110 ;	 function fsm
+                                   1111 ;	-----------------------------------------
+      0002B9                       1112 _fsm:
+                                   1113 ;	fsm.c:214: _sdcc_external_startup();
+      0002B9 12r00r0C         [24] 1114 	lcall	__sdcc_external_startup
+                                   1115 ;	fsm.c:218: START:
+      0002BC                       1116 00101$:
+                                   1117 ;	fsm.c:220: stay = true;
+      0002BC 75*55 01         [24] 1118 	mov	_fsm_stay_65537_78,#0x01
+                                   1119 ;	fsm.c:222: new_buffer_index = 0;
+      0002BF E4               [12] 1120 	clr	a
+      0002C0 F5*51            [12] 1121 	mov	_new_buffer_index,a
+      0002C2 F5*52            [12] 1122 	mov	(_new_buffer_index + 1),a
+                                   1123 ;	fsm.c:224: while(stay)
+      0002C4                       1124 00110$:
+      0002C4 E5*55            [12] 1125 	mov	a,_fsm_stay_65537_78
+      0002C6 70 03            [24] 1126 	jnz	00358$
+      0002C8 02r04r83         [24] 1127 	ljmp	00112$
+      0002CB                       1128 00358$:
+                                   1129 ;	fsm.c:227: buffer_0_and_1_size = fetch_buffer_size(type_buffer0_and_1);
+      0002CB 75 82 00         [24] 1130 	mov	dpl,#0x00
+      0002CE 12r00r00         [24] 1131 	lcall	_fetch_buffer_size
+                                   1132 ;	fsm.c:230: if(( buffer0 = (__xdata char*) malloc(buffer_0_and_1_size)) == 0)
+      0002D1 85 82*49         [24] 1133 	mov	_buffer_0_and_1_size,dpl
+      0002D4 85 83*4A         [24] 1134 	mov  (_buffer_0_and_1_size + 1),dph
+      0002D7 12r00r00         [24] 1135 	lcall	_malloc
+      0002DA AE 82            [24] 1136 	mov	r6,dpl
+      0002DC AF 83            [24] 1137 	mov	r7,dph
+      0002DE 7D 00            [12] 1138 	mov	r5,#0x00
+      0002E0 8E*00            [24] 1139 	mov	_buffer0,r6
+      0002E2 8F*01            [24] 1140 	mov	(_buffer0 + 1),r7
+      0002E4 8D*02            [24] 1141 	mov	(_buffer0 + 2),r5
+      0002E6 EE               [12] 1142 	mov	a,r6
+      0002E7 4F               [12] 1143 	orl	a,r7
+      0002E8 70 39            [24] 1144 	jnz	00104$
+                                   1145 ;	fsm.c:232: new_buffer[new_buffer_index] = buffer0;
+      0002EA 85*51*00         [24] 1146 	mov	__mulint_PARM_2,_new_buffer_index
+      0002ED 85*52*01         [24] 1147 	mov	(__mulint_PARM_2 + 1),(_new_buffer_index + 1)
+      0002F0 90 00 03         [24] 1148 	mov	dptr,#0x0003
+      0002F3 12r00r00         [24] 1149 	lcall	__mulint
+      0002F6 E5 82            [12] 1150 	mov	a,dpl
+      0002F8 24r06            [12] 1151 	add	a,#_new_buffer
+      0002FA F8               [12] 1152 	mov	r0,a
+      0002FB A6*00            [24] 1153 	mov	@r0,_buffer0
+      0002FD 08               [12] 1154 	inc	r0
+      0002FE A6*01            [24] 1155 	mov	@r0,(_buffer0 + 1)
+      000300 08               [12] 1156 	inc	r0
+      000301 A6*02            [24] 1157 	mov	@r0,(_buffer0 + 2)
+                                   1158 ;	fsm.c:235: printf_tiny("FAILURE: malloc for buffer0 failed\n\r");
+      000303 74r2D            [12] 1159 	mov	a,#___str_11
+      000305 C0 E0            [24] 1160 	push	acc
+      000307 74s00            [12] 1161 	mov	a,#(___str_11 >> 8)
+      000309 C0 E0            [24] 1162 	push	acc
+      00030B 12r00r00         [24] 1163 	lcall	_printf_tiny
+      00030E 15 81            [12] 1164 	dec	sp
+      000310 15 81            [12] 1165 	dec	sp
+                                   1166 ;	fsm.c:238: free(buffer0);
+      000312 AD*00            [24] 1167 	mov	r5,_buffer0
+      000314 AE*01            [24] 1168 	mov	r6,(_buffer0 + 1)
+      000316 AF*02            [24] 1169 	mov	r7,(_buffer0 + 2)
+      000318 8D 82            [24] 1170 	mov	dpl,r5
+      00031A 8E 83            [24] 1171 	mov	dph,r6
+      00031C 8F F0            [24] 1172 	mov	b,r7
+      00031E 12r00r00         [24] 1173 	lcall	_free
+      000321 80 7B            [24] 1174 	sjmp	00105$
+      000323                       1175 00104$:
+                                   1176 ;	fsm.c:242: printf_tiny("SUCCESS: buffer0 malloc done\n\r");
+      000323 74r52            [12] 1177 	mov	a,#___str_12
+      000325 C0 E0            [24] 1178 	push	acc
+      000327 74s00            [12] 1179 	mov	a,#(___str_12 >> 8)
+      000329 C0 E0            [24] 1180 	push	acc
+      00032B 12r00r00         [24] 1181 	lcall	_printf_tiny
+      00032E 15 81            [12] 1182 	dec	sp
+      000330 15 81            [12] 1183 	dec	sp
+                                   1184 ;	fsm.c:245: new_buffer[new_buffer_index] = buffer0;
+      000332 85*51*00         [24] 1185 	mov	__mulint_PARM_2,_new_buffer_index
+      000335 85*52*01         [24] 1186 	mov	(__mulint_PARM_2 + 1),(_new_buffer_index + 1)
+      000338 90 00 03         [24] 1187 	mov	dptr,#0x0003
+      00033B 12r00r00         [24] 1188 	lcall	__mulint
+      00033E E5 82            [12] 1189 	mov	a,dpl
+      000340 24r06            [12] 1190 	add	a,#_new_buffer
+      000342 F8               [12] 1191 	mov	r0,a
+      000343 A6*00            [24] 1192 	mov	@r0,_buffer0
+      000345 08               [12] 1193 	inc	r0
+      000346 A6*01            [24] 1194 	mov	@r0,(_buffer0 + 1)
+      000348 08               [12] 1195 	inc	r0
+      000349 A6*02            [24] 1196 	mov	@r0,(_buffer0 + 2)
+                                   1197 ;	fsm.c:248: new_buffer_size[0] = buffer_0_and_1_size;
+      00034B 85*49*2D         [24] 1198 	mov	(_new_buffer_size + 0),_buffer_0_and_1_size
+      00034E 85*4A*2E         [24] 1199 	mov	(_new_buffer_size + 1),(_buffer_0_and_1_size + 1)
+                                   1200 ;	fsm.c:249: printf_tiny(" Buffer0 size is : %d\n\r", new_buffer_size[0]);
+      000351 C0*49            [24] 1201 	push	_buffer_0_and_1_size
+      000353 C0*4A            [24] 1202 	push	(_buffer_0_and_1_size + 1)
+      000355 74r71            [12] 1203 	mov	a,#___str_13
+      000357 C0 E0            [24] 1204 	push	acc
+      000359 74s00            [12] 1205 	mov	a,#(___str_13 >> 8)
+      00035B C0 E0            [24] 1206 	push	acc
+      00035D 12r00r00         [24] 1207 	lcall	_printf_tiny
+      000360 E5 81            [12] 1208 	mov	a,sp
+      000362 24 FC            [12] 1209 	add	a,#0xfc
+      000364 F5 81            [12] 1210 	mov	sp,a
+                                   1211 ;	fsm.c:252: for(int i = 0; i < buffer_0_and_1_size; i++)
+      000366 7E 00            [12] 1212 	mov	r6,#0x00
+      000368 7F 00            [12] 1213 	mov	r7,#0x00
+      00036A                       1214 00164$:
+      00036A C3               [12] 1215 	clr	c
+      00036B EE               [12] 1216 	mov	a,r6
+      00036C 95*49            [12] 1217 	subb	a,_buffer_0_and_1_size
+      00036E EF               [12] 1218 	mov	a,r7
+      00036F 64 80            [12] 1219 	xrl	a,#0x80
+      000371 85*4A F0         [24] 1220 	mov	b,(_buffer_0_and_1_size + 1)
+      000374 63 F0 80         [24] 1221 	xrl	b,#0x80
+      000377 95 F0            [12] 1222 	subb	a,b
+      000379 50 1B            [24] 1223 	jnc	00102$
+                                   1224 ;	fsm.c:254: buffer0[i] = '\0';
+      00037B EE               [12] 1225 	mov	a,r6
+      00037C 25*00            [12] 1226 	add	a,_buffer0
+      00037E FB               [12] 1227 	mov	r3,a
+      00037F EF               [12] 1228 	mov	a,r7
+      000380 35*01            [12] 1229 	addc	a,(_buffer0 + 1)
+      000382 FC               [12] 1230 	mov	r4,a
+      000383 AD*02            [24] 1231 	mov	r5,(_buffer0 + 2)
+      000385 8B 82            [24] 1232 	mov	dpl,r3
+      000387 8C 83            [24] 1233 	mov	dph,r4
+      000389 8D F0            [24] 1234 	mov	b,r5
+      00038B E4               [12] 1235 	clr	a
+      00038C 12r00r00         [24] 1236 	lcall	__gptrput
+                                   1237 ;	fsm.c:252: for(int i = 0; i < buffer_0_and_1_size; i++)
+      00038F 0E               [12] 1238 	inc	r6
+      000390 BE 00 D7         [24] 1239 	cjne	r6,#0x00,00164$
+      000393 0F               [12] 1240 	inc	r7
+      000394 80 D4            [24] 1241 	sjmp	00164$
+      000396                       1242 00102$:
+                                   1243 ;	fsm.c:258: new_buffer_index++;
+      000396 05*51            [12] 1244 	inc	_new_buffer_index
+      000398 E4               [12] 1245 	clr	a
+      000399 B5*51 02         [24] 1246 	cjne	a,_new_buffer_index,00362$
+      00039C 05*52            [12] 1247 	inc	(_new_buffer_index + 1)
+      00039E                       1248 00362$:
+      00039E                       1249 00105$:
+                                   1250 ;	fsm.c:261: if (( buffer1 = (__xdata char*) malloc(buffer_0_and_1_size)) == 0)
+      00039E 85*49 82         [24] 1251 	mov	dpl,_buffer_0_and_1_size
+      0003A1 85*4A 83         [24] 1252 	mov	dph,(_buffer_0_and_1_size + 1)
+      0003A4 12r00r00         [24] 1253 	lcall	_malloc
+      0003A7 AE 82            [24] 1254 	mov	r6,dpl
+      0003A9 AF 83            [24] 1255 	mov	r7,dph
+      0003AB 7D 00            [12] 1256 	mov	r5,#0x00
+      0003AD 8E*03            [24] 1257 	mov	_buffer1,r6
+      0003AF 8F*04            [24] 1258 	mov	(_buffer1 + 1),r7
+      0003B1 8D*05            [24] 1259 	mov	(_buffer1 + 2),r5
+      0003B3 EE               [12] 1260 	mov	a,r6
+      0003B4 4F               [12] 1261 	orl	a,r7
+      0003B5 70 4B            [24] 1262 	jnz	00108$
+                                   1263 ;	fsm.c:263: buffer1 = new_buffer[new_buffer_index];
+      0003B7 85*51*00         [24] 1264 	mov	__mulint_PARM_2,_new_buffer_index
+      0003BA 85*52*01         [24] 1265 	mov	(__mulint_PARM_2 + 1),(_new_buffer_index + 1)
+      0003BD 90 00 03         [24] 1266 	mov	dptr,#0x0003
+      0003C0 12r00r00         [24] 1267 	lcall	__mulint
+      0003C3 E5 82            [12] 1268 	mov	a,dpl
+      0003C5 24r06            [12] 1269 	add	a,#_new_buffer
+      0003C7 F9               [12] 1270 	mov	r1,a
+      0003C8 87*03            [24] 1271 	mov	_buffer1,@r1
+      0003CA 09               [12] 1272 	inc	r1
+      0003CB 87*04            [24] 1273 	mov	(_buffer1 + 1),@r1
+      0003CD 09               [12] 1274 	inc	r1
+      0003CE 87*05            [24] 1275 	mov	(_buffer1 + 2),@r1
+      0003D0 19               [12] 1276 	dec	r1
+      0003D1 19               [12] 1277 	dec	r1
+                                   1278 ;	fsm.c:264: printf_tiny("FALIURE: malloc for buffer1 failed\n\r");
+      0003D2 74r89            [12] 1279 	mov	a,#___str_14
+      0003D4 C0 E0            [24] 1280 	push	acc
+      0003D6 74s00            [12] 1281 	mov	a,#(___str_14 >> 8)
+      0003D8 C0 E0            [24] 1282 	push	acc
+      0003DA 12r00r00         [24] 1283 	lcall	_printf_tiny
+      0003DD 15 81            [12] 1284 	dec	sp
+      0003DF 15 81            [12] 1285 	dec	sp
+                                   1286 ;	fsm.c:267: free (buffer0);
+      0003E1 AD*00            [24] 1287 	mov	r5,_buffer0
+      0003E3 AE*01            [24] 1288 	mov	r6,(_buffer0 + 1)
+      0003E5 AF*02            [24] 1289 	mov	r7,(_buffer0 + 2)
+      0003E7 8D 82            [24] 1290 	mov	dpl,r5
+      0003E9 8E 83            [24] 1291 	mov	dph,r6
+      0003EB 8F F0            [24] 1292 	mov	b,r7
+      0003ED 12r00r00         [24] 1293 	lcall	_free
+                                   1294 ;	fsm.c:268: free (buffer1);
+      0003F0 AD*03            [24] 1295 	mov	r5,_buffer1
+      0003F2 AE*04            [24] 1296 	mov	r6,(_buffer1 + 1)
+      0003F4 AF*05            [24] 1297 	mov	r7,(_buffer1 + 2)
+      0003F6 8D 82            [24] 1298 	mov	dpl,r5
+      0003F8 8E 83            [24] 1299 	mov	dph,r6
+      0003FA 8F F0            [24] 1300 	mov	b,r7
+      0003FC 12r00r00         [24] 1301 	lcall	_free
+      0003FF 02r02rC4         [24] 1302 	ljmp	00110$
+      000402                       1303 00108$:
+                                   1304 ;	fsm.c:272: printf_tiny("SUCCESS: buffer1 malloc done\n\r");
+      000402 74rAE            [12] 1305 	mov	a,#___str_15
+      000404 C0 E0            [24] 1306 	push	acc
+      000406 74s00            [12] 1307 	mov	a,#(___str_15 >> 8)
+      000408 C0 E0            [24] 1308 	push	acc
+      00040A 12r00r00         [24] 1309 	lcall	_printf_tiny
+      00040D 15 81            [12] 1310 	dec	sp
+      00040F 15 81            [12] 1311 	dec	sp
+                                   1312 ;	fsm.c:275: new_buffer[new_buffer_index] = buffer1;
+      000411 85*51*00         [24] 1313 	mov	__mulint_PARM_2,_new_buffer_index
+      000414 85*52*01         [24] 1314 	mov	(__mulint_PARM_2 + 1),(_new_buffer_index + 1)
+      000417 90 00 03         [24] 1315 	mov	dptr,#0x0003
+      00041A 12r00r00         [24] 1316 	lcall	__mulint
+      00041D E5 82            [12] 1317 	mov	a,dpl
+      00041F 24r06            [12] 1318 	add	a,#_new_buffer
+      000421 F8               [12] 1319 	mov	r0,a
+      000422 A6*03            [24] 1320 	mov	@r0,_buffer1
+      000424 08               [12] 1321 	inc	r0
+      000425 A6*04            [24] 1322 	mov	@r0,(_buffer1 + 1)
+      000427 08               [12] 1323 	inc	r0
+      000428 A6*05            [24] 1324 	mov	@r0,(_buffer1 + 2)
+                                   1325 ;	fsm.c:278: new_buffer_size[1] = buffer_0_and_1_size;
+      00042A 85*49*2F         [24] 1326 	mov	((_new_buffer_size + 0x0002) + 0),_buffer_0_and_1_size
+      00042D 85*4A*30         [24] 1327 	mov	((_new_buffer_size + 0x0002) + 1),(_buffer_0_and_1_size + 1)
+                                   1328 ;	fsm.c:280: printf_tiny(" Buffer1 size is : %d\n\r", new_buffer_size[1]);
+      000430 C0*49            [24] 1329 	push	_buffer_0_and_1_size
+      000432 C0*4A            [24] 1330 	push	(_buffer_0_and_1_size + 1)
+      000434 74rCD            [12] 1331 	mov	a,#___str_16
+      000436 C0 E0            [24] 1332 	push	acc
+      000438 74s00            [12] 1333 	mov	a,#(___str_16 >> 8)
+      00043A C0 E0            [24] 1334 	push	acc
+      00043C 12r00r00         [24] 1335 	lcall	_printf_tiny
+      00043F E5 81            [12] 1336 	mov	a,sp
+      000441 24 FC            [12] 1337 	add	a,#0xfc
+      000443 F5 81            [12] 1338 	mov	sp,a
+                                   1339 ;	fsm.c:283: for(int i = 0; i < buffer_0_and_1_size; i++)
+      000445 7E 00            [12] 1340 	mov	r6,#0x00
+      000447 7F 00            [12] 1341 	mov	r7,#0x00
+      000449                       1342 00167$:
+      000449 C3               [12] 1343 	clr	c
+      00044A EE               [12] 1344 	mov	a,r6
+      00044B 95*49            [12] 1345 	subb	a,_buffer_0_and_1_size
+      00044D EF               [12] 1346 	mov	a,r7
+      00044E 64 80            [12] 1347 	xrl	a,#0x80
+      000450 85*4A F0         [24] 1348 	mov	b,(_buffer_0_and_1_size + 1)
+      000453 63 F0 80         [24] 1349 	xrl	b,#0x80
+      000456 95 F0            [12] 1350 	subb	a,b
+      000458 50 1B            [24] 1351 	jnc	00106$
+                                   1352 ;	fsm.c:285: buffer1[i] = '\0';
+      00045A EE               [12] 1353 	mov	a,r6
+      00045B 25*03            [12] 1354 	add	a,_buffer1
+      00045D FB               [12] 1355 	mov	r3,a
+      00045E EF               [12] 1356 	mov	a,r7
+      00045F 35*04            [12] 1357 	addc	a,(_buffer1 + 1)
+      000461 FC               [12] 1358 	mov	r4,a
+      000462 AD*05            [24] 1359 	mov	r5,(_buffer1 + 2)
+      000464 8B 82            [24] 1360 	mov	dpl,r3
+      000466 8C 83            [24] 1361 	mov	dph,r4
+      000468 8D F0            [24] 1362 	mov	b,r5
+      00046A E4               [12] 1363 	clr	a
+      00046B 12r00r00         [24] 1364 	lcall	__gptrput
+                                   1365 ;	fsm.c:283: for(int i = 0; i < buffer_0_and_1_size; i++)
+      00046E 0E               [12] 1366 	inc	r6
+      00046F BE 00 D7         [24] 1367 	cjne	r6,#0x00,00167$
+      000472 0F               [12] 1368 	inc	r7
+      000473 80 D4            [24] 1369 	sjmp	00167$
+      000475                       1370 00106$:
+                                   1371 ;	fsm.c:289: new_buffer_index++;
+      000475 05*51            [12] 1372 	inc	_new_buffer_index
+      000477 E4               [12] 1373 	clr	a
+      000478 B5*51 02         [24] 1374 	cjne	a,_new_buffer_index,00366$
+      00047B 05*52            [12] 1375 	inc	(_new_buffer_index + 1)
+      00047D                       1376 00366$:
+                                   1377 ;	fsm.c:292: stay = false;
+      00047D 75*55 00         [24] 1378 	mov	_fsm_stay_65537_78,#0x00
+      000480 02r02rC4         [24] 1379 	ljmp	00110$
+      000483                       1380 00112$:
+                                   1381 ;	fsm.c:297: dataout(0x1);
+      000483 75 82 01         [24] 1382 	mov	dpl,#0x01
+      000486 12r00r00         [24] 1383 	lcall	_dataout
+                                   1384 ;	fsm.c:299: int idx = 0;
+      000489 E4               [12] 1385 	clr	a
+      00048A F5*56            [12] 1386 	mov	_fsm_idx_65538_88,a
+      00048C F5*57            [12] 1387 	mov	(_fsm_idx_65538_88 + 1),a
+                                   1388 ;	fsm.c:305: storage_characters_buffer_0 = 0;
+      00048E F5*4F            [12] 1389 	mov	_storage_characters_buffer_0,a
+      000490 F5*50            [12] 1390 	mov	(_storage_characters_buffer_0 + 1),a
+                                   1391 ;	fsm.c:307: total_characters = 0;
+      000492 F5*4D            [12] 1392 	mov	_total_characters,a
+      000494 F5*4E            [12] 1393 	mov	(_total_characters + 1),a
+                                   1394 ;	fsm.c:309: while(1)
+      000496                       1395 00161$:
+                                   1396 ;	fsm.c:311: char ch = '\0';
+      000496 75*58 00         [24] 1397 	mov	_fsm_ch_131074_89,#0x00
+                                   1398 ;	fsm.c:314: int character_type = fetch_character(&ch);
+      000499 90r00r58         [24] 1399 	mov	dptr,#_fsm_ch_131074_89
+      00049C 75 F0 40         [24] 1400 	mov	b,#0x40
+      00049F 12r00r00         [24] 1401 	lcall	_fetch_character
+      0004A2 AC 82            [24] 1402 	mov	r4,dpl
+      0004A4 AD 83            [24] 1403 	mov	r5,dph
+      0004A6 8C 02            [24] 1404 	mov	ar2,r4
+      0004A8 8D 03            [24] 1405 	mov	ar3,r5
+                                   1406 ;	fsm.c:317: if(character_type == type_storage_characters)
+      0004AA EC               [12] 1407 	mov	a,r4
+      0004AB 4D               [12] 1408 	orl	a,r5
+      0004AC 70 4C            [24] 1409 	jnz	00158$
+                                   1410 ;	fsm.c:320: dataout(0x2);
+      0004AE 75 82 02         [24] 1411 	mov	dpl,#0x02
+      0004B1 12r00r00         [24] 1412 	lcall	_dataout
+                                   1413 ;	fsm.c:322: total_characters++;
+      0004B4 05*4D            [12] 1414 	inc	_total_characters
+      0004B6 E4               [12] 1415 	clr	a
+      0004B7 B5*4D 02         [24] 1416 	cjne	a,_total_characters,00368$
+      0004BA 05*4E            [12] 1417 	inc	(_total_characters + 1)
+      0004BC                       1418 00368$:
+                                   1419 ;	fsm.c:324: if(idx < new_buffer_size[0])
+      0004BC C3               [12] 1420 	clr	c
+      0004BD E5*56            [12] 1421 	mov	a,_fsm_idx_65538_88
+      0004BF 95*2D            [12] 1422 	subb	a,_new_buffer_size
+      0004C1 E5*57            [12] 1423 	mov	a,(_fsm_idx_65538_88 + 1)
+      0004C3 64 80            [12] 1424 	xrl	a,#0x80
+      0004C5 85*2E F0         [24] 1425 	mov	b,(_new_buffer_size + 1)
+      0004C8 63 F0 80         [24] 1426 	xrl	b,#0x80
+      0004CB 95 F0            [12] 1427 	subb	a,b
+      0004CD 50 21            [24] 1428 	jnc	00114$
+                                   1429 ;	fsm.c:326: char** temp_buffer0 = new_buffer;
+                                   1430 ;	fsm.c:329: temp_buffer0[0][idx] = ch;
+      0004CF AC*06            [24] 1431 	mov	r4,(_new_buffer + 0)
+      0004D1 AD*07            [24] 1432 	mov	r5,(_new_buffer + 1)
+      0004D3 AF*08            [24] 1433 	mov	r7,(_new_buffer + 2)
+      0004D5 E5*56            [12] 1434 	mov	a,_fsm_idx_65538_88
+      0004D7 2C               [12] 1435 	add	a,r4
+      0004D8 FC               [12] 1436 	mov	r4,a
+      0004D9 E5*57            [12] 1437 	mov	a,(_fsm_idx_65538_88 + 1)
+      0004DB 3D               [12] 1438 	addc	a,r5
+      0004DC FD               [12] 1439 	mov	r5,a
+      0004DD 8C 82            [24] 1440 	mov	dpl,r4
+      0004DF 8D 83            [24] 1441 	mov	dph,r5
+      0004E1 8F F0            [24] 1442 	mov	b,r7
+      0004E3 E5*58            [12] 1443 	mov	a,_fsm_ch_131074_89
+      0004E5 12r00r00         [24] 1444 	lcall	__gptrput
+                                   1445 ;	fsm.c:334: storage_characters_buffer_0++;
+      0004E8 05*4F            [12] 1446 	inc	_storage_characters_buffer_0
+      0004EA E4               [12] 1447 	clr	a
+      0004EB B5*4F 02         [24] 1448 	cjne	a,_storage_characters_buffer_0,00370$
+      0004EE 05*50            [12] 1449 	inc	(_storage_characters_buffer_0 + 1)
+      0004F0                       1450 00370$:
+      0004F0                       1451 00114$:
+                                   1452 ;	fsm.c:337: idx++;
+      0004F0 05*56            [12] 1453 	inc	_fsm_idx_65538_88
+      0004F2 E4               [12] 1454 	clr	a
+      0004F3 B5*56 A0         [24] 1455 	cjne	a,_fsm_idx_65538_88,00161$
+      0004F6 05*57            [12] 1456 	inc	(_fsm_idx_65538_88 + 1)
+      0004F8 80 9C            [24] 1457 	sjmp	00161$
+      0004FA                       1458 00158$:
+                                   1459 ;	fsm.c:341: else if(character_type == type_command_characters)
+      0004FA BA 02 05         [24] 1460 	cjne	r2,#0x02,00372$
+      0004FD BB 00 02         [24] 1461 	cjne	r3,#0x00,00372$
+      000500 80 03            [24] 1462 	sjmp	00373$
+      000502                       1463 00372$:
+      000502 02r0Ar0D         [24] 1464 	ljmp	00155$
+      000505                       1465 00373$:
+                                   1466 ;	fsm.c:344: dataout(0x3);
+      000505 75 82 03         [24] 1467 	mov	dpl,#0x03
+      000508 12r00r00         [24] 1468 	lcall	_dataout
+                                   1469 ;	fsm.c:346: total_characters++;
+      00050B 05*4D            [12] 1470 	inc	_total_characters
+      00050D E4               [12] 1471 	clr	a
+      00050E B5*4D 02         [24] 1472 	cjne	a,_total_characters,00374$
+      000511 05*4E            [12] 1473 	inc	(_total_characters + 1)
+      000513                       1474 00374$:
+                                   1475 ;	fsm.c:348: switch(ch)
+      000513 74 2B            [12] 1476 	mov	a,#0x2b
+      000515 B5*58 02         [24] 1477 	cjne	a,_fsm_ch_131074_89,00375$
+      000518 80 23            [24] 1478 	sjmp	00115$
+      00051A                       1479 00375$:
+      00051A 74 2D            [12] 1480 	mov	a,#0x2d
+      00051C B5*58 03         [24] 1481 	cjne	a,_fsm_ch_131074_89,00376$
+      00051F 02r05rC3         [24] 1482 	ljmp	00119$
+      000522                       1483 00376$:
+      000522 74 3D            [12] 1484 	mov	a,#0x3d
+      000524 B5*58 03         [24] 1485 	cjne	a,_fsm_ch_131074_89,00377$
+      000527 02r07r13         [24] 1486 	ljmp	00137$
+      00052A                       1487 00377$:
+      00052A 74 3F            [12] 1488 	mov	a,#0x3f
+      00052C B5*58 03         [24] 1489 	cjne	a,_fsm_ch_131074_89,00378$
+      00052F 02r07r1F         [24] 1490 	ljmp	00138$
+      000532                       1491 00378$:
+      000532 74 40            [12] 1492 	mov	a,#0x40
+      000534 B5*58 03         [24] 1493 	cjne	a,_fsm_ch_131074_89,00379$
+      000537 02r09rAA         [24] 1494 	ljmp	00150$
+      00053A                       1495 00379$:
+      00053A 02r04r96         [24] 1496 	ljmp	00161$
+                                   1497 ;	fsm.c:350: case '+':
+      00053D                       1498 00115$:
+                                   1499 ;	fsm.c:353: dataout(0x4);
+      00053D 75 82 04         [24] 1500 	mov	dpl,#0x04
+      000540 12r00r00         [24] 1501 	lcall	_dataout
+                                   1502 ;	fsm.c:356: other_buffer_size = 0;
+      000543 E4               [12] 1503 	clr	a
+      000544 F5*4B            [12] 1504 	mov	_other_buffer_size,a
+      000546 F5*4C            [12] 1505 	mov	(_other_buffer_size + 1),a
+                                   1506 ;	fsm.c:362: other_buffer_size = fetch_buffer_size(type_other_buffer);
+      000548 75 82 02         [24] 1507 	mov	dpl,#0x02
+      00054B 12r00r00         [24] 1508 	lcall	_fetch_buffer_size
+      00054E 85 82*4B         [24] 1509 	mov	_other_buffer_size,dpl
+      000551 85 83*4C         [24] 1510 	mov	(_other_buffer_size + 1),dph
+                                   1511 ;	fsm.c:376: if ((new_buffer[new_buffer_index] = (__xdata char*) malloc(other_buffer_size)) == 0)
+      000554 85*51*00         [24] 1512 	mov	__mulint_PARM_2,_new_buffer_index
+      000557 85*52*01         [24] 1513 	mov	(__mulint_PARM_2 + 1),(_new_buffer_index + 1)
+      00055A 90 00 03         [24] 1514 	mov	dptr,#0x0003
+      00055D 12r00r00         [24] 1515 	lcall	__mulint
+      000560 E5 82            [12] 1516 	mov	a,dpl
+      000562 24r06            [12] 1517 	add	a,#_new_buffer
+      000564 F9               [12] 1518 	mov	r1,a
+      000565 85*4B 82         [24] 1519 	mov	dpl,_other_buffer_size
+      000568 85*4C 83         [24] 1520 	mov	dph,(_other_buffer_size + 1)
+      00056B C0 01            [24] 1521 	push	ar1
+      00056D 12r00r00         [24] 1522 	lcall	_malloc
+      000570 AE 82            [24] 1523 	mov	r6,dpl
+      000572 AF 83            [24] 1524 	mov	r7,dph
+      000574 D0 01            [24] 1525 	pop	ar1
+      000576 7D 00            [12] 1526 	mov	r5,#0x00
+      000578 A7 06            [24] 1527 	mov	@r1,ar6
+      00057A 09               [12] 1528 	inc	r1
+      00057B A7 07            [24] 1529 	mov	@r1,ar7
+      00057D 09               [12] 1530 	inc	r1
+      00057E A7 05            [24] 1531 	mov	@r1,ar5
+      000580 19               [12] 1532 	dec	r1
+      000581 19               [12] 1533 	dec	r1
+      000582 EE               [12] 1534 	mov	a,r6
+      000583 4F               [12] 1535 	orl	a,r7
+      000584 70 12            [24] 1536 	jnz	00117$
+                                   1537 ;	fsm.c:379: printf_tiny("\n\rFAILURE: new_buffer malloc failed\n\r");
+      000586 74rE5            [12] 1538 	mov	a,#___str_17
+      000588 C0 E0            [24] 1539 	push	acc
+      00058A 74s00            [12] 1540 	mov	a,#(___str_17 >> 8)
+      00058C C0 E0            [24] 1541 	push	acc
+      00058E 12r00r00         [24] 1542 	lcall	_printf_tiny
+      000591 15 81            [12] 1543 	dec	sp
+      000593 15 81            [12] 1544 	dec	sp
+      000595 02r04r96         [24] 1545 	ljmp	00161$
+      000598                       1546 00117$:
+                                   1547 ;	fsm.c:385: new_buffer_size[new_buffer_index] = other_buffer_size;
+      000598 E5*51            [12] 1548 	mov	a,_new_buffer_index
+      00059A 25*51            [12] 1549 	add	a,_new_buffer_index
+      00059C FE               [12] 1550 	mov	r6,a
+      00059D E5*52            [12] 1551 	mov	a,(_new_buffer_index + 1)
+      00059F 33               [12] 1552 	rlc	a
+      0005A0 EE               [12] 1553 	mov	a,r6
+      0005A1 24r2D            [12] 1554 	add	a,#_new_buffer_size
+      0005A3 F8               [12] 1555 	mov	r0,a
+      0005A4 A6*4B            [24] 1556 	mov	@r0,_other_buffer_size
+      0005A6 08               [12] 1557 	inc	r0
+      0005A7 A6*4C            [24] 1558 	mov	@r0,(_other_buffer_size + 1)
+                                   1559 ;	fsm.c:387: new_buffer_index++;
+      0005A9 05*51            [12] 1560 	inc	_new_buffer_index
+      0005AB E4               [12] 1561 	clr	a
+      0005AC B5*51 02         [24] 1562 	cjne	a,_new_buffer_index,00381$
+      0005AF 05*52            [12] 1563 	inc	(_new_buffer_index + 1)
+      0005B1                       1564 00381$:
+                                   1565 ;	fsm.c:389: printf_tiny("\n\rSUCCESS: new_buffer malloc passed\n\r");
+      0005B1 74r0B            [12] 1566 	mov	a,#___str_18
+      0005B3 C0 E0            [24] 1567 	push	acc
+      0005B5 74s01            [12] 1568 	mov	a,#(___str_18 >> 8)
+      0005B7 C0 E0            [24] 1569 	push	acc
+      0005B9 12r00r00         [24] 1570 	lcall	_printf_tiny
+      0005BC 15 81            [12] 1571 	dec	sp
+      0005BE 15 81            [12] 1572 	dec	sp
+                                   1573 ;	fsm.c:392: break;
+      0005C0 02r04r96         [24] 1574 	ljmp	00161$
+                                   1575 ;	fsm.c:394: case '-':
+      0005C3                       1576 00119$:
+                                   1577 ;	fsm.c:397: dataout(0x5);
+      0005C3 75 82 05         [24] 1578 	mov	dpl,#0x05
+      0005C6 12r00r00         [24] 1579 	lcall	_dataout
+                                   1580 ;	fsm.c:411: buffer_number = 0;
+      0005C9 7E 00            [12] 1581 	mov	r6,#0x00
+      0005CB 7F 00            [12] 1582 	mov	r7,#0x00
+                                   1583 ;	fsm.c:413: printf_tiny("\n\rEnter a valid buffer no. for deletion: ");
+      0005CD C0 07            [24] 1584 	push	ar7
+      0005CF C0 06            [24] 1585 	push	ar6
+      0005D1 74r31            [12] 1586 	mov	a,#___str_19
+      0005D3 C0 E0            [24] 1587 	push	acc
+      0005D5 74s01            [12] 1588 	mov	a,#(___str_19 >> 8)
+      0005D7 C0 E0            [24] 1589 	push	acc
+      0005D9 12r00r00         [24] 1590 	lcall	_printf_tiny
+      0005DC 15 81            [12] 1591 	dec	sp
+      0005DE 15 81            [12] 1592 	dec	sp
+                                   1593 ;	fsm.c:415: char character = getchar();
+      0005E0 12r00r00         [24] 1594 	lcall	_getchar
+      0005E3 AC 82            [24] 1595 	mov	r4,dpl
+                                   1596 ;	fsm.c:416: putchar(character);//printf_tiny("\n\r");
+      0005E5 8C 03            [24] 1597 	mov	ar3,r4
+      0005E7 7D 00            [12] 1598 	mov	r5,#0x00
+      0005E9 8B 82            [24] 1599 	mov	dpl,r3
+      0005EB 8D 83            [24] 1600 	mov	dph,r5
+      0005ED C0 04            [24] 1601 	push	ar4
+      0005EF 12r00r00         [24] 1602 	lcall	_putchar
+      0005F2 D0 04            [24] 1603 	pop	ar4
+      0005F4 D0 06            [24] 1604 	pop	ar6
+      0005F6 D0 07            [24] 1605 	pop	ar7
+                                   1606 ;	fsm.c:418: if(character == '\r')
+      0005F8 BC 0D 12         [24] 1607 	cjne	r4,#0x0d,00126$
+                                   1608 ;	fsm.c:420: printf_tiny("\n\rNO entry -> directly ENTER is pressed\n\r");
+      0005FB 74r5B            [12] 1609 	mov	a,#___str_20
+      0005FD C0 E0            [24] 1610 	push	acc
+      0005FF 74s01            [12] 1611 	mov	a,#(___str_20 >> 8)
+      000601 C0 E0            [24] 1612 	push	acc
+      000603 12r00r00         [24] 1613 	lcall	_printf_tiny
+      000606 15 81            [12] 1614 	dec	sp
+      000608 15 81            [12] 1615 	dec	sp
+                                   1616 ;	fsm.c:421: break;
+      00060A 02r04r96         [24] 1617 	ljmp	00161$
+                                   1618 ;	fsm.c:425: while(1)
+      00060D                       1619 00126$:
+                                   1620 ;	fsm.c:427: if(character < '0' || character > '9')
+      00060D BC 30 00         [24] 1621 	cjne	r4,#0x30,00384$
+      000610                       1622 00384$:
+      000610 40 05            [24] 1623 	jc	00120$
+      000612 EC               [12] 1624 	mov	a,r4
+      000613 24 C6            [12] 1625 	add	a,#0xff - 0x39
+      000615 50 19            [24] 1626 	jnc	00121$
+      000617                       1627 00120$:
+                                   1628 ;	fsm.c:429: printf_tiny("\n\rFAILURE: invalid digits entered \n\r");
+      000617 C0 07            [24] 1629 	push	ar7
+      000619 C0 06            [24] 1630 	push	ar6
+      00061B 74r85            [12] 1631 	mov	a,#___str_21
+      00061D C0 E0            [24] 1632 	push	acc
+      00061F 74s01            [12] 1633 	mov	a,#(___str_21 >> 8)
+      000621 C0 E0            [24] 1634 	push	acc
+      000623 12r00r00         [24] 1635 	lcall	_printf_tiny
+      000626 15 81            [12] 1636 	dec	sp
+      000628 15 81            [12] 1637 	dec	sp
+      00062A D0 06            [24] 1638 	pop	ar6
+      00062C D0 07            [24] 1639 	pop	ar7
+                                   1640 ;	fsm.c:430: break;
+      00062E 80 4A            [24] 1641 	sjmp	00130$
+      000630                       1642 00121$:
+                                   1643 ;	fsm.c:433: int temp = character - '0';
+      000630 8C 03            [24] 1644 	mov	ar3,r4
+      000632 7D 00            [12] 1645 	mov	r5,#0x00
+      000634 EB               [12] 1646 	mov	a,r3
+      000635 24 D0            [12] 1647 	add	a,#0xd0
+      000637 FB               [12] 1648 	mov	r3,a
+      000638 ED               [12] 1649 	mov	a,r5
+      000639 34 FF            [12] 1650 	addc	a,#0xff
+      00063B FD               [12] 1651 	mov	r5,a
+                                   1652 ;	fsm.c:435: buffer_number = buffer_number*10 + temp; //we enter seperate numbers so if 1 and 2 and 3 then its 123(only single number)
+      00063C 8E*00            [24] 1653 	mov	__mulint_PARM_2,r6
+      00063E 8F*01            [24] 1654 	mov	(__mulint_PARM_2 + 1),r7
+      000640 90 00 0A         [24] 1655 	mov	dptr,#0x000a
+      000643 C0 05            [24] 1656 	push	ar5
+      000645 C0 03            [24] 1657 	push	ar3
+      000647 12r00r00         [24] 1658 	lcall	__mulint
+      00064A E5 82            [12] 1659 	mov	a,dpl
+      00064C 85 83 F0         [24] 1660 	mov	b,dph
+      00064F D0 03            [24] 1661 	pop	ar3
+      000651 D0 05            [24] 1662 	pop	ar5
+      000653 2B               [12] 1663 	add	a,r3
+      000654 FE               [12] 1664 	mov	r6,a
+      000655 ED               [12] 1665 	mov	a,r5
+      000656 35 F0            [12] 1666 	addc	a,b
+      000658 FF               [12] 1667 	mov	r7,a
+                                   1668 ;	fsm.c:437: character = getchar();putchar(character);
+      000659 C0 07            [24] 1669 	push	ar7
+      00065B C0 06            [24] 1670 	push	ar6
+      00065D 12r00r00         [24] 1671 	lcall	_getchar
+      000660 AB 82            [24] 1672 	mov	r3,dpl
+      000662 8B 04            [24] 1673 	mov	ar4,r3
+      000664 8C 03            [24] 1674 	mov	ar3,r4
+      000666 7D 00            [12] 1675 	mov	r5,#0x00
+      000668 8B 82            [24] 1676 	mov	dpl,r3
+      00066A 8D 83            [24] 1677 	mov	dph,r5
+      00066C C0 04            [24] 1678 	push	ar4
+      00066E 12r00r00         [24] 1679 	lcall	_putchar
+      000671 D0 04            [24] 1680 	pop	ar4
+      000673 D0 06            [24] 1681 	pop	ar6
+      000675 D0 07            [24] 1682 	pop	ar7
+                                   1683 ;	fsm.c:439: if(character == '\r') { break; }
+      000677 BC 0D 93         [24] 1684 	cjne	r4,#0x0d,00126$
+      00067A                       1685 00130$:
+                                   1686 ;	fsm.c:447: if(buffer_number == 0)
+      00067A EE               [12] 1687 	mov	a,r6
+      00067B 4F               [12] 1688 	orl	a,r7
+      00067C 70 12            [24] 1689 	jnz	00132$
+                                   1690 ;	fsm.c:449: printf_tiny("\n\rBuffer number can't be 0\n\r");
+      00067E 74rAA            [12] 1691 	mov	a,#___str_22
+      000680 C0 E0            [24] 1692 	push	acc
+      000682 74s01            [12] 1693 	mov	a,#(___str_22 >> 8)
+      000684 C0 E0            [24] 1694 	push	acc
+      000686 12r00r00         [24] 1695 	lcall	_printf_tiny
+      000689 15 81            [12] 1696 	dec	sp
+      00068B 15 81            [12] 1697 	dec	sp
+                                   1698 ;	fsm.c:450: break;
+      00068D 02r04r96         [24] 1699 	ljmp	00161$
+      000690                       1700 00132$:
+                                   1701 ;	fsm.c:455: if(buffer_number >= new_buffer_index - 1)
+      000690 E5*51            [12] 1702 	mov	a,_new_buffer_index
+      000692 24 FF            [12] 1703 	add	a,#0xff
+      000694 FC               [12] 1704 	mov	r4,a
+      000695 E5*52            [12] 1705 	mov	a,(_new_buffer_index + 1)
+      000697 34 FF            [12] 1706 	addc	a,#0xff
+      000699 FD               [12] 1707 	mov	r5,a
+      00069A C3               [12] 1708 	clr	c
+      00069B EE               [12] 1709 	mov	a,r6
+      00069C 9C               [12] 1710 	subb	a,r4
+      00069D EF               [12] 1711 	mov	a,r7
+      00069E 64 80            [12] 1712 	xrl	a,#0x80
+      0006A0 8D F0            [24] 1713 	mov	b,r5
+      0006A2 63 F0 80         [24] 1714 	xrl	b,#0x80
+      0006A5 95 F0            [12] 1715 	subb	a,b
+      0006A7 40 12            [24] 1716 	jc	00134$
+                                   1717 ;	fsm.c:457: printf_tiny("\n\rFAILURE: Buffer doesn't exist\n\r");
+      0006A9 74rC7            [12] 1718 	mov	a,#___str_23
+      0006AB C0 E0            [24] 1719 	push	acc
+      0006AD 74s01            [12] 1720 	mov	a,#(___str_23 >> 8)
+      0006AF C0 E0            [24] 1721 	push	acc
+      0006B1 12r00r00         [24] 1722 	lcall	_printf_tiny
+      0006B4 15 81            [12] 1723 	dec	sp
+      0006B6 15 81            [12] 1724 	dec	sp
+                                   1725 ;	fsm.c:458: break;
+      0006B8 02r04r96         [24] 1726 	ljmp	00161$
+      0006BB                       1727 00134$:
+                                   1728 ;	fsm.c:461: if(new_buffer[buffer_number] == 0)
+      0006BB 8E*00            [24] 1729 	mov	__mulint_PARM_2,r6
+      0006BD 8F*01            [24] 1730 	mov	(__mulint_PARM_2 + 1),r7
+      0006BF 90 00 03         [24] 1731 	mov	dptr,#0x0003
+      0006C2 12r00r00         [24] 1732 	lcall	__mulint
+      0006C5 E5 82            [12] 1733 	mov	a,dpl
+      0006C7 24r06            [12] 1734 	add	a,#_new_buffer
+      0006C9 F9               [12] 1735 	mov	r1,a
+      0006CA 87 05            [24] 1736 	mov	ar5,@r1
+      0006CC 09               [12] 1737 	inc	r1
+      0006CD 87 06            [24] 1738 	mov	ar6,@r1
+      0006CF 09               [12] 1739 	inc	r1
+      0006D0 87 07            [24] 1740 	mov	ar7,@r1
+      0006D2 19               [12] 1741 	dec	r1
+      0006D3 19               [12] 1742 	dec	r1
+      0006D4 ED               [12] 1743 	mov	a,r5
+      0006D5 4E               [12] 1744 	orl	a,r6
+      0006D6 70 12            [24] 1745 	jnz	00136$
+                                   1746 ;	fsm.c:463: printf_tiny("\n\rFAILURE: Buffer doesn't exist\n\r");
+      0006D8 74rC7            [12] 1747 	mov	a,#___str_23
+      0006DA C0 E0            [24] 1748 	push	acc
+      0006DC 74s01            [12] 1749 	mov	a,#(___str_23 >> 8)
+      0006DE C0 E0            [24] 1750 	push	acc
+      0006E0 12r00r00         [24] 1751 	lcall	_printf_tiny
+      0006E3 15 81            [12] 1752 	dec	sp
+      0006E5 15 81            [12] 1753 	dec	sp
+                                   1754 ;	fsm.c:464: break;
+      0006E7 02r04r96         [24] 1755 	ljmp	00161$
+      0006EA                       1756 00136$:
+                                   1757 ;	fsm.c:468: free(new_buffer[buffer_number]);
+      0006EA 8D 82            [24] 1758 	mov	dpl,r5
+      0006EC 8E 83            [24] 1759 	mov	dph,r6
+      0006EE 8F F0            [24] 1760 	mov	b,r7
+      0006F0 C0 01            [24] 1761 	push	ar1
+      0006F2 12r00r00         [24] 1762 	lcall	_free
+      0006F5 D0 01            [24] 1763 	pop	ar1
+                                   1764 ;	fsm.c:470: new_buffer[buffer_number] = 0;
+      0006F7 77 00            [12] 1765 	mov	@r1,#0x00
+      0006F9 09               [12] 1766 	inc	r1
+      0006FA 77 00            [12] 1767 	mov	@r1,#0x00
+      0006FC 09               [12] 1768 	inc	r1
+      0006FD 77 00            [12] 1769 	mov	@r1,#0x00
+      0006FF 19               [12] 1770 	dec	r1
+      000700 19               [12] 1771 	dec	r1
+                                   1772 ;	fsm.c:472: printf_tiny("\n\rSUCCESS: Buffer freed\n\r");
+      000701 74rE9            [12] 1773 	mov	a,#___str_24
+      000703 C0 E0            [24] 1774 	push	acc
+      000705 74s01            [12] 1775 	mov	a,#(___str_24 >> 8)
+      000707 C0 E0            [24] 1776 	push	acc
+      000709 12r00r00         [24] 1777 	lcall	_printf_tiny
+      00070C 15 81            [12] 1778 	dec	sp
+      00070E 15 81            [12] 1779 	dec	sp
+                                   1780 ;	fsm.c:476: break;
+      000710 02r04r96         [24] 1781 	ljmp	00161$
+                                   1782 ;	fsm.c:478: case '=':
+      000713                       1783 00137$:
+                                   1784 ;	fsm.c:481: dataout(0x6);
+      000713 75 82 06         [24] 1785 	mov	dpl,#0x06
+      000716 12r00r00         [24] 1786 	lcall	_dataout
+                                   1787 ;	fsm.c:497: print_buffer0_hex();
+      000719 12r01rB4         [24] 1788 	lcall	_print_buffer0_hex
+                                   1789 ;	fsm.c:499: break;
+      00071C 02r04r96         [24] 1790 	ljmp	00161$
+                                   1791 ;	fsm.c:501: case '?':
+      00071F                       1792 00138$:
+                                   1793 ;	fsm.c:504: dataout(0x7);
+      00071F 75 82 07         [24] 1794 	mov	dpl,#0x07
+      000722 12r00r00         [24] 1795 	lcall	_dataout
+                                   1796 ;	fsm.c:506: printf_tiny("\n\r************  HEAP REPORT  **************\n\r");
+      000725 74r03            [12] 1797 	mov	a,#___str_25
+      000727 C0 E0            [24] 1798 	push	acc
+      000729 74s02            [12] 1799 	mov	a,#(___str_25 >> 8)
+      00072B C0 E0            [24] 1800 	push	acc
+      00072D 12r00r00         [24] 1801 	lcall	_printf_tiny
+      000730 15 81            [12] 1802 	dec	sp
+      000732 15 81            [12] 1803 	dec	sp
+                                   1804 ;	fsm.c:508: printf_tiny("total number of characters received since the last '?' : %d\n\r", total_characters);
+      000734 C0*4D            [24] 1805 	push	_total_characters
+      000736 C0*4E            [24] 1806 	push	(_total_characters + 1)
+      000738 74r31            [12] 1807 	mov	a,#___str_26
+      00073A C0 E0            [24] 1808 	push	acc
+      00073C 74s02            [12] 1809 	mov	a,#(___str_26 >> 8)
+      00073E C0 E0            [24] 1810 	push	acc
+      000740 12r00r00         [24] 1811 	lcall	_printf_tiny
+      000743 E5 81            [12] 1812 	mov	a,sp
+      000745 24 FC            [12] 1813 	add	a,#0xfc
+      000747 F5 81            [12] 1814 	mov	sp,a
+                                   1815 ;	fsm.c:509: printf_tiny("total number of storage characters received : %d\n\r", storage_characters_buffer_0);
+      000749 C0*4F            [24] 1816 	push	_storage_characters_buffer_0
+      00074B C0*50            [24] 1817 	push	(_storage_characters_buffer_0 + 1)
+      00074D 74r6F            [12] 1818 	mov	a,#___str_27
+      00074F C0 E0            [24] 1819 	push	acc
+      000751 74s02            [12] 1820 	mov	a,#(___str_27 >> 8)
+      000753 C0 E0            [24] 1821 	push	acc
+      000755 12r00r00         [24] 1822 	lcall	_printf_tiny
+      000758 E5 81            [12] 1823 	mov	a,sp
+      00075A 24 FC            [12] 1824 	add	a,#0xfc
+      00075C F5 81            [12] 1825 	mov	sp,a
+                                   1826 ;	fsm.c:510: printf_tiny("total number of buffers : %d\n\r", new_buffer_index);
+      00075E C0*51            [24] 1827 	push	_new_buffer_index
+      000760 C0*52            [24] 1828 	push	(_new_buffer_index + 1)
+      000762 74rA2            [12] 1829 	mov	a,#___str_28
+      000764 C0 E0            [24] 1830 	push	acc
+      000766 74s02            [12] 1831 	mov	a,#(___str_28 >> 8)
+      000768 C0 E0            [24] 1832 	push	acc
+      00076A 12r00r00         [24] 1833 	lcall	_printf_tiny
+      00076D E5 81            [12] 1834 	mov	a,sp
+      00076F 24 FC            [12] 1835 	add	a,#0xfc
+      000771 F5 81            [12] 1836 	mov	sp,a
+                                   1837 ;	fsm.c:512: total_characters = 0;
+                                   1838 ;	fsm.c:514: for(int i = 0; i < new_buffer_index; i++)
+      000773 E4               [12] 1839 	clr	a
+      000774 F5*4D            [12] 1840 	mov	_total_characters,a
+      000776 F5*4E            [12] 1841 	mov	(_total_characters + 1),a
+      000778 F5*59            [12] 1842 	mov	_fsm_i_327683_106,a
+      00077A F5*5A            [12] 1843 	mov	(_fsm_i_327683_106 + 1),a
+      00077C FC               [12] 1844 	mov	r4,a
+      00077D FD               [12] 1845 	mov	r5,a
+      00077E F5*5F            [12] 1846 	mov	_fsm_sloc0_1_0,a
+      000780 F5*60            [12] 1847 	mov	(_fsm_sloc0_1_0 + 1),a
+      000782                       1848 00173$:
+      000782 C3               [12] 1849 	clr	c
+      000783 E5*59            [12] 1850 	mov	a,_fsm_i_327683_106
+      000785 95*51            [12] 1851 	subb	a,_new_buffer_index
+      000787 E5*5A            [12] 1852 	mov	a,(_fsm_i_327683_106 + 1)
+      000789 64 80            [12] 1853 	xrl	a,#0x80
+      00078B 85*52 F0         [24] 1854 	mov	b,(_new_buffer_index + 1)
+      00078E 63 F0 80         [24] 1855 	xrl	b,#0x80
+      000791 95 F0            [12] 1856 	subb	a,b
+      000793 40 03            [24] 1857 	jc	00392$
+      000795 02r04r96         [24] 1858 	ljmp	00161$
+      000798                       1859 00392$:
+                                   1860 ;	fsm.c:516: printf_tiny("\n\r\n\rBuffer #%d\n\r", i);
+      000798 C0 05            [24] 1861 	push	ar5
+      00079A C0 04            [24] 1862 	push	ar4
+      00079C C0*59            [24] 1863 	push	_fsm_i_327683_106
+      00079E C0*5A            [24] 1864 	push	(_fsm_i_327683_106 + 1)
+      0007A0 74rC1            [12] 1865 	mov	a,#___str_29
+      0007A2 C0 E0            [24] 1866 	push	acc
+      0007A4 74s02            [12] 1867 	mov	a,#(___str_29 >> 8)
+      0007A6 C0 E0            [24] 1868 	push	acc
+      0007A8 12r00r00         [24] 1869 	lcall	_printf_tiny
+      0007AB E5 81            [12] 1870 	mov	a,sp
+      0007AD 24 FC            [12] 1871 	add	a,#0xfc
+      0007AF F5 81            [12] 1872 	mov	sp,a
+      0007B1 D0 04            [24] 1873 	pop	ar4
+      0007B3 D0 05            [24] 1874 	pop	ar5
+                                   1875 ;	fsm.c:518: if(i > 0 && new_buffer[i] == 0)
+      0007B5 C3               [12] 1876 	clr	c
+      0007B6 E4               [12] 1877 	clr	a
+      0007B7 95*59            [12] 1878 	subb	a,_fsm_i_327683_106
+      0007B9 74 80            [12] 1879 	mov	a,#(0x00 ^ 0x80)
+      0007BB 85*5A F0         [24] 1880 	mov	b,(_fsm_i_327683_106 + 1)
+      0007BE 63 F0 80         [24] 1881 	xrl	b,#0x80
+      0007C1 95 F0            [12] 1882 	subb	a,b
+      0007C3 50 2C            [24] 1883 	jnc	00146$
+      0007C5 EC               [12] 1884 	mov	a,r4
+      0007C6 24r06            [12] 1885 	add	a,#_new_buffer
+      0007C8 F9               [12] 1886 	mov	r1,a
+      0007C9 87 03            [24] 1887 	mov	ar3,@r1
+      0007CB 09               [12] 1888 	inc	r1
+      0007CC 87 06            [24] 1889 	mov	ar6,@r1
+      0007CE 09               [12] 1890 	inc	r1
+      0007CF 87 07            [24] 1891 	mov	ar7,@r1
+      0007D1 19               [12] 1892 	dec	r1
+      0007D2 19               [12] 1893 	dec	r1
+      0007D3 EB               [12] 1894 	mov	a,r3
+      0007D4 4E               [12] 1895 	orl	a,r6
+      0007D5 70 1A            [24] 1896 	jnz	00146$
+                                   1897 ;	fsm.c:520: printf_tiny("\n\rIt is unavailable (was freed)\n\r");
+      0007D7 C0 05            [24] 1898 	push	ar5
+      0007D9 C0 04            [24] 1899 	push	ar4
+      0007DB 74rD2            [12] 1900 	mov	a,#___str_30
+      0007DD C0 E0            [24] 1901 	push	acc
+      0007DF 74s02            [12] 1902 	mov	a,#(___str_30 >> 8)
+      0007E1 C0 E0            [24] 1903 	push	acc
+      0007E3 12r00r00         [24] 1904 	lcall	_printf_tiny
+      0007E6 15 81            [12] 1905 	dec	sp
+      0007E8 15 81            [12] 1906 	dec	sp
+      0007EA D0 04            [24] 1907 	pop	ar4
+      0007EC D0 05            [24] 1908 	pop	ar5
+      0007EE 02r09r76         [24] 1909 	ljmp	00147$
+      0007F1                       1910 00146$:
+                                   1911 ;	fsm.c:524: printf_tiny("\n\rBuffer start address: ");
+      0007F1 C0 04            [24] 1912 	push	ar4
+      0007F3 C0 05            [24] 1913 	push	ar5
+      0007F5 C0 05            [24] 1914 	push	ar5
+      0007F7 C0 04            [24] 1915 	push	ar4
+      0007F9 74rF4            [12] 1916 	mov	a,#___str_31
+      0007FB C0 E0            [24] 1917 	push	acc
+      0007FD 74s02            [12] 1918 	mov	a,#(___str_31 >> 8)
+      0007FF C0 E0            [24] 1919 	push	acc
+      000801 12r00r00         [24] 1920 	lcall	_printf_tiny
+      000804 15 81            [12] 1921 	dec	sp
+      000806 15 81            [12] 1922 	dec	sp
+      000808 D0 04            [24] 1923 	pop	ar4
+      00080A D0 05            [24] 1924 	pop	ar5
+                                   1925 ;	fsm.c:526: temp = (int) (new_buffer[i]);
+      00080C E5*5F            [12] 1926 	mov	a,_fsm_sloc0_1_0
+      00080E 24r06            [12] 1927 	add	a,#_new_buffer
+      000810 F9               [12] 1928 	mov	r1,a
+      000811 87 06            [24] 1929 	mov	ar6,@r1
+      000813 09               [12] 1930 	inc	r1
+      000814 87 07            [24] 1931 	mov	ar7,@r1
+      000816 19               [12] 1932 	dec	r1
+                                   1933 ;	fsm.c:527: printf_tiny("0x");
+      000817 C0 07            [24] 1934 	push	ar7
+      000819 C0 06            [24] 1935 	push	ar6
+      00081B C0 05            [24] 1936 	push	ar5
+      00081D C0 04            [24] 1937 	push	ar4
+      00081F C0 01            [24] 1938 	push	ar1
+      000821 74r0D            [12] 1939 	mov	a,#___str_32
+      000823 C0 E0            [24] 1940 	push	acc
+      000825 74s03            [12] 1941 	mov	a,#(___str_32 >> 8)
+      000827 C0 E0            [24] 1942 	push	acc
+      000829 12r00r00         [24] 1943 	lcall	_printf_tiny
+      00082C 15 81            [12] 1944 	dec	sp
+      00082E 15 81            [12] 1945 	dec	sp
+      000830 D0 01            [24] 1946 	pop	ar1
+      000832 D0 04            [24] 1947 	pop	ar4
+      000834 D0 05            [24] 1948 	pop	ar5
+      000836 D0 06            [24] 1949 	pop	ar6
+      000838 D0 07            [24] 1950 	pop	ar7
+                                   1951 ;	fsm.c:528: print_address_in_hex(temp);
+      00083A 8E 82            [24] 1952 	mov	dpl,r6
+      00083C 8F 83            [24] 1953 	mov	dph,r7
+      00083E C0 05            [24] 1954 	push	ar5
+      000840 C0 04            [24] 1955 	push	ar4
+      000842 C0 01            [24] 1956 	push	ar1
+      000844 12r00r13         [24] 1957 	lcall	_print_address_in_hex
+                                   1958 ;	fsm.c:530: printf_tiny("\n\rBuffer end address:   ");
+      000847 74r10            [12] 1959 	mov	a,#___str_33
+      000849 C0 E0            [24] 1960 	push	acc
+      00084B 74s03            [12] 1961 	mov	a,#(___str_33 >> 8)
+      00084D C0 E0            [24] 1962 	push	acc
+      00084F 12r00r00         [24] 1963 	lcall	_printf_tiny
+      000852 15 81            [12] 1964 	dec	sp
+      000854 15 81            [12] 1965 	dec	sp
+      000856 D0 01            [24] 1966 	pop	ar1
+      000858 D0 04            [24] 1967 	pop	ar4
+      00085A D0 05            [24] 1968 	pop	ar5
+                                   1969 ;	fsm.c:532: temp = (int) ( (new_buffer[i]) + new_buffer_size[i] );
+      00085C 87 03            [24] 1970 	mov	ar3,@r1
+      00085E 09               [12] 1971 	inc	r1
+      00085F 87 06            [24] 1972 	mov	ar6,@r1
+      000861 09               [12] 1973 	inc	r1
+      000862 19               [12] 1974 	dec	r1
+      000863 19               [12] 1975 	dec	r1
+      000864 E5*59            [12] 1976 	mov	a,_fsm_i_327683_106
+      000866 25*59            [12] 1977 	add	a,_fsm_i_327683_106
+      000868 FA               [12] 1978 	mov	r2,a
+      000869 E5*5A            [12] 1979 	mov	a,(_fsm_i_327683_106 + 1)
+      00086B 33               [12] 1980 	rlc	a
+      00086C EA               [12] 1981 	mov	a,r2
+      00086D 24r2D            [12] 1982 	add	a,#_new_buffer_size
+      00086F F5*61            [12] 1983 	mov	_fsm_sloc1_1_0,a
+      000871 A8*61            [24] 1984 	mov	r0,_fsm_sloc1_1_0
+      000873 86 04            [24] 1985 	mov	ar4,@r0
+      000875 08               [12] 1986 	inc	r0
+      000876 86 05            [24] 1987 	mov	ar5,@r0
+      000878 EC               [12] 1988 	mov	a,r4
+      000879 2B               [12] 1989 	add	a,r3
+      00087A FB               [12] 1990 	mov	r3,a
+      00087B ED               [12] 1991 	mov	a,r5
+      00087C 3E               [12] 1992 	addc	a,r6
+      00087D FE               [12] 1993 	mov	r6,a
+                                   1994 ;	fsm.c:533: printf_tiny("0x");
+      00087E C0 06            [24] 1995 	push	ar6
+      000880 C0 05            [24] 1996 	push	ar5
+      000882 C0 04            [24] 1997 	push	ar4
+      000884 C0 03            [24] 1998 	push	ar3
+      000886 74r0D            [12] 1999 	mov	a,#___str_32
+      000888 C0 E0            [24] 2000 	push	acc
+      00088A 74s03            [12] 2001 	mov	a,#(___str_32 >> 8)
+      00088C C0 E0            [24] 2002 	push	acc
+      00088E 12r00r00         [24] 2003 	lcall	_printf_tiny
+      000891 15 81            [12] 2004 	dec	sp
+      000893 15 81            [12] 2005 	dec	sp
+      000895 D0 03            [24] 2006 	pop	ar3
+      000897 D0 04            [24] 2007 	pop	ar4
+      000899 D0 05            [24] 2008 	pop	ar5
+      00089B D0 06            [24] 2009 	pop	ar6
+                                   2010 ;	fsm.c:534: print_address_in_hex(temp);
+      00089D 8B 82            [24] 2011 	mov	dpl,r3
+      00089F 8E 83            [24] 2012 	mov	dph,r6
+      0008A1 C0 05            [24] 2013 	push	ar5
+      0008A3 C0 04            [24] 2014 	push	ar4
+      0008A5 12r00r13         [24] 2015 	lcall	_print_address_in_hex
+                                   2016 ;	fsm.c:536: printf_tiny("\n\rTotal allocated size of the buffer (in bytes): %d", new_buffer_size[i]);
+      0008A8 A8*61            [24] 2017 	mov	r0,_fsm_sloc1_1_0
+      0008AA 86 06            [24] 2018 	mov	ar6,@r0
+      0008AC 08               [12] 2019 	inc	r0
+      0008AD 86 07            [24] 2020 	mov	ar7,@r0
+      0008AF C0 06            [24] 2021 	push	ar6
+      0008B1 C0 07            [24] 2022 	push	ar7
+      0008B3 74r29            [12] 2023 	mov	a,#___str_34
+      0008B5 C0 E0            [24] 2024 	push	acc
+      0008B7 74s03            [12] 2025 	mov	a,#(___str_34 >> 8)
+      0008B9 C0 E0            [24] 2026 	push	acc
+      0008BB 12r00r00         [24] 2027 	lcall	_printf_tiny
+      0008BE E5 81            [12] 2028 	mov	a,sp
+      0008C0 24 FC            [12] 2029 	add	a,#0xfc
+      0008C2 F5 81            [12] 2030 	mov	sp,a
+      0008C4 D0 04            [24] 2031 	pop	ar4
+      0008C6 D0 05            [24] 2032 	pop	ar5
+                                   2033 ;	fsm.c:538: if(i == 0)
+      0008C8 D0 05            [24] 2034 	pop	ar5
+      0008CA D0 04            [24] 2035 	pop	ar4
+      0008CC E5*59            [12] 2036 	mov	a,_fsm_i_327683_106
+      0008CE 45*5A            [12] 2037 	orl	a,(_fsm_i_327683_106 + 1)
+      0008D0 70 2F            [24] 2038 	jnz	00140$
+                                   2039 ;	fsm.c:540: printf_tiny("\n\rNumber of free spaces remaining in that buffer: %d\n\r", new_buffer_size[i] - storage_characters_buffer_0);
+      0008D2 A8*61            [24] 2040 	mov	r0,_fsm_sloc1_1_0
+      0008D4 86 06            [24] 2041 	mov	ar6,@r0
+      0008D6 08               [12] 2042 	inc	r0
+      0008D7 86 07            [24] 2043 	mov	ar7,@r0
+      0008D9 EE               [12] 2044 	mov	a,r6
+      0008DA C3               [12] 2045 	clr	c
+      0008DB 95*4F            [12] 2046 	subb	a,_storage_characters_buffer_0
+      0008DD FE               [12] 2047 	mov	r6,a
+      0008DE EF               [12] 2048 	mov	a,r7
+      0008DF 95*50            [12] 2049 	subb	a,(_storage_characters_buffer_0 + 1)
+      0008E1 FF               [12] 2050 	mov	r7,a
+      0008E2 C0 05            [24] 2051 	push	ar5
+      0008E4 C0 04            [24] 2052 	push	ar4
+      0008E6 C0 06            [24] 2053 	push	ar6
+      0008E8 C0 07            [24] 2054 	push	ar7
+      0008EA 74r5D            [12] 2055 	mov	a,#___str_35
+      0008EC C0 E0            [24] 2056 	push	acc
+      0008EE 74s03            [12] 2057 	mov	a,#(___str_35 >> 8)
+      0008F0 C0 E0            [24] 2058 	push	acc
+      0008F2 12r00r00         [24] 2059 	lcall	_printf_tiny
+      0008F5 E5 81            [12] 2060 	mov	a,sp
+      0008F7 24 FC            [12] 2061 	add	a,#0xfc
+      0008F9 F5 81            [12] 2062 	mov	sp,a
+      0008FB D0 04            [24] 2063 	pop	ar4
+      0008FD D0 05            [24] 2064 	pop	ar5
+      0008FF 80 24            [24] 2065 	sjmp	00141$
+      000901                       2066 00140$:
+                                   2067 ;	fsm.c:544: printf_tiny("\n\rNumber of free spaces remaining in that buffer: %d\n\r", new_buffer_size[i]);
+      000901 A8*61            [24] 2068 	mov	r0,_fsm_sloc1_1_0
+      000903 86 06            [24] 2069 	mov	ar6,@r0
+      000905 08               [12] 2070 	inc	r0
+      000906 86 07            [24] 2071 	mov	ar7,@r0
+      000908 C0 05            [24] 2072 	push	ar5
+      00090A C0 04            [24] 2073 	push	ar4
+      00090C C0 06            [24] 2074 	push	ar6
+      00090E C0 07            [24] 2075 	push	ar7
+      000910 74r5D            [12] 2076 	mov	a,#___str_35
+      000912 C0 E0            [24] 2077 	push	acc
+      000914 74s03            [12] 2078 	mov	a,#(___str_35 >> 8)
+      000916 C0 E0            [24] 2079 	push	acc
+      000918 12r00r00         [24] 2080 	lcall	_printf_tiny
+      00091B E5 81            [12] 2081 	mov	a,sp
+      00091D 24 FC            [12] 2082 	add	a,#0xfc
+      00091F F5 81            [12] 2083 	mov	sp,a
+      000921 D0 04            [24] 2084 	pop	ar4
+      000923 D0 05            [24] 2085 	pop	ar5
+      000925                       2086 00141$:
+                                   2087 ;	fsm.c:547: if(i == 0)
+      000925 E5*59            [12] 2088 	mov	a,_fsm_i_327683_106
+      000927 45*5A            [12] 2089 	orl	a,(_fsm_i_327683_106 + 1)
+      000929 70 4B            [24] 2090 	jnz	00147$
+                                   2091 ;	fsm.c:549: print_buffer0_ascii();
+      00092B C0 05            [24] 2092 	push	ar5
+      00092D C0 04            [24] 2093 	push	ar4
+      00092F 12r00rAF         [24] 2094 	lcall	_print_buffer0_ascii
+      000932 D0 04            [24] 2095 	pop	ar4
+      000934 D0 05            [24] 2096 	pop	ar5
+                                   2097 ;	fsm.c:551: for(int i = 0; i < new_buffer_size[0]; i++)
+      000936 E4               [12] 2098 	clr	a
+      000937 F5*5B            [12] 2099 	mov	_fsm_i_589828_114,a
+      000939 F5*5C            [12] 2100 	mov	(_fsm_i_589828_114 + 1),a
+      00093B                       2101 00170$:
+      00093B C3               [12] 2102 	clr	c
+      00093C E5*5B            [12] 2103 	mov	a,_fsm_i_589828_114
+      00093E 95*2D            [12] 2104 	subb	a,_new_buffer_size
+      000940 E5*5C            [12] 2105 	mov	a,(_fsm_i_589828_114 + 1)
+      000942 64 80            [12] 2106 	xrl	a,#0x80
+      000944 85*2E F0         [24] 2107 	mov	b,(_new_buffer_size + 1)
+      000947 63 F0 80         [24] 2108 	xrl	b,#0x80
+      00094A 95 F0            [12] 2109 	subb	a,b
+      00094C 50 1F            [24] 2110 	jnc	00142$
+                                   2111 ;	fsm.c:553: buffer0[i] = '\0';
+      00094E E5*5B            [12] 2112 	mov	a,_fsm_i_589828_114
+      000950 25*00            [12] 2113 	add	a,_buffer0
+      000952 FA               [12] 2114 	mov	r2,a
+      000953 E5*5C            [12] 2115 	mov	a,(_fsm_i_589828_114 + 1)
+      000955 35*01            [12] 2116 	addc	a,(_buffer0 + 1)
+      000957 FB               [12] 2117 	mov	r3,a
+      000958 AF*02            [24] 2118 	mov	r7,(_buffer0 + 2)
+      00095A 8A 82            [24] 2119 	mov	dpl,r2
+      00095C 8B 83            [24] 2120 	mov	dph,r3
+      00095E 8F F0            [24] 2121 	mov	b,r7
+      000960 E4               [12] 2122 	clr	a
+      000961 12r00r00         [24] 2123 	lcall	__gptrput
+                                   2124 ;	fsm.c:551: for(int i = 0; i < new_buffer_size[0]; i++)
+      000964 05*5B            [12] 2125 	inc	_fsm_i_589828_114
+                                   2126 ;	genFromRTrack removed	clr	a
+      000966 B5*5B D2         [24] 2127 	cjne	a,_fsm_i_589828_114,00170$
+      000969 05*5C            [12] 2128 	inc	(_fsm_i_589828_114 + 1)
+      00096B 80 CE            [24] 2129 	sjmp	00170$
+      00096D                       2130 00142$:
+                                   2131 ;	fsm.c:556: storage_characters_buffer_0 = 0;
+      00096D E4               [12] 2132 	clr	a
+      00096E F5*4F            [12] 2133 	mov	_storage_characters_buffer_0,a
+      000970 F5*50            [12] 2134 	mov	(_storage_characters_buffer_0 + 1),a
+                                   2135 ;	fsm.c:558: idx = 0;
+      000972 F5*56            [12] 2136 	mov	_fsm_idx_65538_88,a
+      000974 F5*57            [12] 2137 	mov	(_fsm_idx_65538_88 + 1),a
+      000976                       2138 00147$:
+                                   2139 ;	fsm.c:562: printf_tiny("\n\r");
+      000976 C0 05            [24] 2140 	push	ar5
+      000978 C0 04            [24] 2141 	push	ar4
+      00097A 74r21            [12] 2142 	mov	a,#___str_8
+      00097C C0 E0            [24] 2143 	push	acc
+      00097E 74s00            [12] 2144 	mov	a,#(___str_8 >> 8)
+      000980 C0 E0            [24] 2145 	push	acc
+      000982 12r00r00         [24] 2146 	lcall	_printf_tiny
+      000985 15 81            [12] 2147 	dec	sp
+      000987 15 81            [12] 2148 	dec	sp
+      000989 D0 04            [24] 2149 	pop	ar4
+      00098B D0 05            [24] 2150 	pop	ar5
+                                   2151 ;	fsm.c:514: for(int i = 0; i < new_buffer_index; i++)
+      00098D 74 03            [12] 2152 	mov	a,#0x03
+      00098F 2C               [12] 2153 	add	a,r4
+      000990 FC               [12] 2154 	mov	r4,a
+      000991 E4               [12] 2155 	clr	a
+      000992 3D               [12] 2156 	addc	a,r5
+      000993 FD               [12] 2157 	mov	r5,a
+      000994 74 03            [12] 2158 	mov	a,#0x03
+      000996 25*5F            [12] 2159 	add	a,_fsm_sloc0_1_0
+      000998 F5*5F            [12] 2160 	mov	_fsm_sloc0_1_0,a
+      00099A E4               [12] 2161 	clr	a
+      00099B 35*60            [12] 2162 	addc	a,(_fsm_sloc0_1_0 + 1)
+      00099D F5*60            [12] 2163 	mov	(_fsm_sloc0_1_0 + 1),a
+      00099F 05*59            [12] 2164 	inc	_fsm_i_327683_106
+      0009A1 E4               [12] 2165 	clr	a
+      0009A2 B5*59 02         [24] 2166 	cjne	a,_fsm_i_327683_106,00399$
+      0009A5 05*5A            [12] 2167 	inc	(_fsm_i_327683_106 + 1)
+      0009A7                       2168 00399$:
+      0009A7 02r07r82         [24] 2169 	ljmp	00173$
+                                   2170 ;	fsm.c:603: case '@':
+      0009AA                       2171 00150$:
+                                   2172 ;	fsm.c:606: dataout(0x8);
+      0009AA 75 82 08         [24] 2173 	mov	dpl,#0x08
+      0009AD 12r00r00         [24] 2174 	lcall	_dataout
+                                   2175 ;	fsm.c:613: for(int i = 0; i < new_buffer_index; i++)
+      0009B0 7E 00            [12] 2176 	mov	r6,#0x00
+      0009B2 7F 00            [12] 2177 	mov	r7,#0x00
+      0009B4                       2178 00176$:
+      0009B4 C3               [12] 2179 	clr	c
+      0009B5 EE               [12] 2180 	mov	a,r6
+      0009B6 95*51            [12] 2181 	subb	a,_new_buffer_index
+      0009B8 EF               [12] 2182 	mov	a,r7
+      0009B9 64 80            [12] 2183 	xrl	a,#0x80
+      0009BB 85*52 F0         [24] 2184 	mov	b,(_new_buffer_index + 1)
+      0009BE 63 F0 80         [24] 2185 	xrl	b,#0x80
+      0009C1 95 F0            [12] 2186 	subb	a,b
+      0009C3 50 36            [24] 2187 	jnc	00151$
+                                   2188 ;	fsm.c:615: free(new_buffer[i++]);
+      0009C5 8E*00            [24] 2189 	mov	__mulint_PARM_2,r6
+      0009C7 8F*01            [24] 2190 	mov	(__mulint_PARM_2 + 1),r7
+      0009C9 74 01            [12] 2191 	mov	a,#0x01
+      0009CB 2E               [12] 2192 	add	a,r6
+      0009CC F5*5D            [12] 2193 	mov	_fsm_i_327683_116,a
+      0009CE E4               [12] 2194 	clr	a
+      0009CF 3F               [12] 2195 	addc	a,r7
+      0009D0 F5*5E            [12] 2196 	mov	(_fsm_i_327683_116 + 1),a
+      0009D2 90 00 03         [24] 2197 	mov	dptr,#0x0003
+      0009D5 12r00r00         [24] 2198 	lcall	__mulint
+      0009D8 E5 82            [12] 2199 	mov	a,dpl
+      0009DA 24r06            [12] 2200 	add	a,#_new_buffer
+      0009DC F9               [12] 2201 	mov	r1,a
+      0009DD 87 02            [24] 2202 	mov	ar2,@r1
+      0009DF 09               [12] 2203 	inc	r1
+      0009E0 87 03            [24] 2204 	mov	ar3,@r1
+      0009E2 09               [12] 2205 	inc	r1
+      0009E3 87 05            [24] 2206 	mov	ar5,@r1
+      0009E5 19               [12] 2207 	dec	r1
+      0009E6 19               [12] 2208 	dec	r1
+      0009E7 8A 82            [24] 2209 	mov	dpl,r2
+      0009E9 8B 83            [24] 2210 	mov	dph,r3
+      0009EB 8D F0            [24] 2211 	mov	b,r5
+      0009ED 12r00r00         [24] 2212 	lcall	_free
+                                   2213 ;	fsm.c:613: for(int i = 0; i < new_buffer_index; i++)
+      0009F0 74 01            [12] 2214 	mov	a,#0x01
+      0009F2 25*5D            [12] 2215 	add	a,_fsm_i_327683_116
+      0009F4 FE               [12] 2216 	mov	r6,a
+      0009F5 E4               [12] 2217 	clr	a
+      0009F6 35*5E            [12] 2218 	addc	a,(_fsm_i_327683_116 + 1)
+      0009F8 FF               [12] 2219 	mov	r7,a
+      0009F9 80 B9            [24] 2220 	sjmp	00176$
+      0009FB                       2221 00151$:
+                                   2222 ;	fsm.c:618: printf_tiny("\n\rSUCCESS: All buffers are freed successfully\n\r");
+      0009FB 74r94            [12] 2223 	mov	a,#___str_36
+      0009FD C0 E0            [24] 2224 	push	acc
+      0009FF 74s03            [12] 2225 	mov	a,#(___str_36 >> 8)
+      000A01 C0 E0            [24] 2226 	push	acc
+      000A03 12r00r00         [24] 2227 	lcall	_printf_tiny
+      000A06 15 81            [12] 2228 	dec	sp
+      000A08 15 81            [12] 2229 	dec	sp
+                                   2230 ;	fsm.c:621: goto START;
+      000A0A 02r02rBC         [24] 2231 	ljmp	00101$
+                                   2232 ;	fsm.c:627: }
+      000A0D                       2233 00155$:
+                                   2234 ;	fsm.c:632: total_characters++;
+      000A0D 05*4D            [12] 2235 	inc	_total_characters
+      000A0F E4               [12] 2236 	clr	a
+      000A10 B5*4D 02         [24] 2237 	cjne	a,_total_characters,00401$
+      000A13 05*4E            [12] 2238 	inc	(_total_characters + 1)
+      000A15                       2239 00401$:
+                                   2240 ;	fsm.c:635: dataout(0x9);
+      000A15 75 82 09         [24] 2241 	mov	dpl,#0x09
+      000A18 12r00r00         [24] 2242 	lcall	_dataout
+                                   2243 ;	fsm.c:640: }
+      000A1B 02r04r96         [24] 2244 	ljmp	00161$
+                                   2245 	.area CSEG    (CODE)
+                                   2246 	.area CONST   (CODE)
+                                   2247 	.area CONST   (CODE)
+      000000                       2248 ___str_0:
+      000000 25 78                 2249 	.ascii "%x"
+      000002 00                    2250 	.db 0x00
+                                   2251 	.area CSEG    (CODE)
+                                   2252 	.area CONST   (CODE)
+      000003                       2253 ___str_1:
+      000003 30 25 78              2254 	.ascii "0%x"
+      000006 00                    2255 	.db 0x00
+                                   2256 	.area CSEG    (CODE)
+                                   2257 	.area CONST   (CODE)
+      000007                       2258 ___str_2:
+      000007 30 30 25 78           2259 	.ascii "00%x"
+      00000B 00                    2260 	.db 0x00
+                                   2261 	.area CSEG    (CODE)
+                                   2262 	.area CONST   (CODE)
+      00000C                       2263 ___str_3:
+      00000C 30 30 30 25 78        2264 	.ascii "000%x"
+      000011 00                    2265 	.db 0x00
+                                   2266 	.area CSEG    (CODE)
+                                   2267 	.area CONST   (CODE)
+      000012                       2268 ___str_4:
+      000012 3A                    2269 	.ascii ":"
+      000013 00                    2270 	.db 0x00
+                                   2271 	.area CSEG    (CODE)
+                                   2272 	.area CONST   (CODE)
+      000014                       2273 ___str_5:
+      000014 20 30 30              2274 	.ascii " 00"
+      000017 00                    2275 	.db 0x00
+                                   2276 	.area CSEG    (CODE)
+                                   2277 	.area CONST   (CODE)
+      000018                       2278 ___str_6:
+      000018 20 30 25 64           2279 	.ascii " 0%d"
+      00001C 00                    2280 	.db 0x00
+                                   2281 	.area CSEG    (CODE)
+                                   2282 	.area CONST   (CODE)
+      00001D                       2283 ___str_7:
+      00001D 20 25 64              2284 	.ascii " %d"
+      000020 00                    2285 	.db 0x00
+                                   2286 	.area CSEG    (CODE)
+                                   2287 	.area CONST   (CODE)
+      000021                       2288 ___str_8:
+      000021 0A                    2289 	.db 0x0a
+      000022 0D                    2290 	.db 0x0d
+      000023 00                    2291 	.db 0x00
+                                   2292 	.area CSEG    (CODE)
+                                   2293 	.area CONST   (CODE)
+      000024                       2294 ___str_9:
+      000024 20 30 25 78           2295 	.ascii " 0%x"
+      000028 00                    2296 	.db 0x00
+                                   2297 	.area CSEG    (CODE)
+                                   2298 	.area CONST   (CODE)
+      000029                       2299 ___str_10:
+      000029 20 25 78              2300 	.ascii " %x"
+      00002C 00                    2301 	.db 0x00
+                                   2302 	.area CSEG    (CODE)
+                                   2303 	.area CONST   (CODE)
+      00002D                       2304 ___str_11:
+      00002D 46 41 49 4C 55 52 45  2305 	.ascii "FAILURE: malloc for buffer0 failed"
+             3A 20 6D 61 6C 6C 6F
+             63 20 66 6F 72 20 62
+             75 66 66 65 72 30 20
+             66 61 69 6C 65 64
+      00004F 0A                    2306 	.db 0x0a
+      000050 0D                    2307 	.db 0x0d
+      000051 00                    2308 	.db 0x00
+                                   2309 	.area CSEG    (CODE)
+                                   2310 	.area CONST   (CODE)
+      000052                       2311 ___str_12:
+      000052 53 55 43 43 45 53 53  2312 	.ascii "SUCCESS: buffer0 malloc done"
+             3A 20 62 75 66 66 65
+             72 30 20 6D 61 6C 6C
+             6F 63 20 64 6F 6E 65
+      00006E 0A                    2313 	.db 0x0a
+      00006F 0D                    2314 	.db 0x0d
+      000070 00                    2315 	.db 0x00
+                                   2316 	.area CSEG    (CODE)
+                                   2317 	.area CONST   (CODE)
+      000071                       2318 ___str_13:
+      000071 20 42 75 66 66 65 72  2319 	.ascii " Buffer0 size is : %d"
+             30 20 73 69 7A 65 20
+             69 73 20 3A 20 25 64
+      000086 0A                    2320 	.db 0x0a
+      000087 0D                    2321 	.db 0x0d
+      000088 00                    2322 	.db 0x00
+                                   2323 	.area CSEG    (CODE)
+                                   2324 	.area CONST   (CODE)
+      000089                       2325 ___str_14:
+      000089 46 41 4C 49 55 52 45  2326 	.ascii "FALIURE: malloc for buffer1 failed"
+             3A 20 6D 61 6C 6C 6F
+             63 20 66 6F 72 20 62
+             75 66 66 65 72 31 20
+             66 61 69 6C 65 64
+      0000AB 0A                    2327 	.db 0x0a
+      0000AC 0D                    2328 	.db 0x0d
+      0000AD 00                    2329 	.db 0x00
+                                   2330 	.area CSEG    (CODE)
+                                   2331 	.area CONST   (CODE)
+      0000AE                       2332 ___str_15:
+      0000AE 53 55 43 43 45 53 53  2333 	.ascii "SUCCESS: buffer1 malloc done"
+             3A 20 62 75 66 66 65
+             72 31 20 6D 61 6C 6C
+             6F 63 20 64 6F 6E 65
+      0000CA 0A                    2334 	.db 0x0a
+      0000CB 0D                    2335 	.db 0x0d
+      0000CC 00                    2336 	.db 0x00
+                                   2337 	.area CSEG    (CODE)
+                                   2338 	.area CONST   (CODE)
+      0000CD                       2339 ___str_16:
+      0000CD 20 42 75 66 66 65 72  2340 	.ascii " Buffer1 size is : %d"
+             31 20 73 69 7A 65 20
+             69 73 20 3A 20 25 64
+      0000E2 0A                    2341 	.db 0x0a
+      0000E3 0D                    2342 	.db 0x0d
+      0000E4 00                    2343 	.db 0x00
+                                   2344 	.area CSEG    (CODE)
+                                   2345 	.area CONST   (CODE)
+      0000E5                       2346 ___str_17:
+      0000E5 0A                    2347 	.db 0x0a
+      0000E6 0D                    2348 	.db 0x0d
+      0000E7 46 41 49 4C 55 52 45  2349 	.ascii "FAILURE: new_buffer malloc failed"
+             3A 20 6E 65 77 5F 62
+             75 66 66 65 72 20 6D
+             61 6C 6C 6F 63 20 66
+             61 69 6C 65 64
+      000108 0A                    2350 	.db 0x0a
+      000109 0D                    2351 	.db 0x0d
+      00010A 00                    2352 	.db 0x00
+                                   2353 	.area CSEG    (CODE)
+                                   2354 	.area CONST   (CODE)
+      00010B                       2355 ___str_18:
+      00010B 0A                    2356 	.db 0x0a
+      00010C 0D                    2357 	.db 0x0d
+      00010D 53 55 43 43 45 53 53  2358 	.ascii "SUCCESS: new_buffer malloc passed"
+             3A 20 6E 65 77 5F 62
+             75 66 66 65 72 20 6D
+             61 6C 6C 6F 63 20 70
+             61 73 73 65 64
+      00012E 0A                    2359 	.db 0x0a
+      00012F 0D                    2360 	.db 0x0d
+      000130 00                    2361 	.db 0x00
+                                   2362 	.area CSEG    (CODE)
+                                   2363 	.area CONST   (CODE)
+      000131                       2364 ___str_19:
+      000131 0A                    2365 	.db 0x0a
+      000132 0D                    2366 	.db 0x0d
+      000133 45 6E 74 65 72 20 61  2367 	.ascii "Enter a valid buffer no. for deletion: "
+             20 76 61 6C 69 64 20
+             62 75 66 66 65 72 20
+             6E 6F 2E 20 66 6F 72
+             20 64 65 6C 65 74 69
+             6F 6E 3A 20
+      00015A 00                    2368 	.db 0x00
+                                   2369 	.area CSEG    (CODE)
+                                   2370 	.area CONST   (CODE)
+      00015B                       2371 ___str_20:
+      00015B 0A                    2372 	.db 0x0a
+      00015C 0D                    2373 	.db 0x0d
+      00015D 4E 4F 20 65 6E 74 72  2374 	.ascii "NO entry -> directly ENTER is pressed"
+             79 20 2D 3E 20 64 69
+             72 65 63 74 6C 79 20
+             45 4E 54 45 52 20 69
+             73 20 70 72 65 73 73
+             65 64
+      000182 0A                    2375 	.db 0x0a
+      000183 0D                    2376 	.db 0x0d
+      000184 00                    2377 	.db 0x00
+                                   2378 	.area CSEG    (CODE)
+                                   2379 	.area CONST   (CODE)
+      000185                       2380 ___str_21:
+      000185 0A                    2381 	.db 0x0a
+      000186 0D                    2382 	.db 0x0d
+      000187 46 41 49 4C 55 52 45  2383 	.ascii "FAILURE: invalid digits entered "
+             3A 20 69 6E 76 61 6C
+             69 64 20 64 69 67 69
+             74 73 20 65 6E 74 65
+             72 65 64 20
+      0001A7 0A                    2384 	.db 0x0a
+      0001A8 0D                    2385 	.db 0x0d
+      0001A9 00                    2386 	.db 0x00
+                                   2387 	.area CSEG    (CODE)
+                                   2388 	.area CONST   (CODE)
+      0001AA                       2389 ___str_22:
+      0001AA 0A                    2390 	.db 0x0a
+      0001AB 0D                    2391 	.db 0x0d
+      0001AC 42 75 66 66 65 72 20  2392 	.ascii "Buffer number can't be 0"
+             6E 75 6D 62 65 72 20
+             63 61 6E 27 74 20 62
+             65 20 30
+      0001C4 0A                    2393 	.db 0x0a
+      0001C5 0D                    2394 	.db 0x0d
+      0001C6 00                    2395 	.db 0x00
+                                   2396 	.area CSEG    (CODE)
+                                   2397 	.area CONST   (CODE)
+      0001C7                       2398 ___str_23:
+      0001C7 0A                    2399 	.db 0x0a
+      0001C8 0D                    2400 	.db 0x0d
+      0001C9 46 41 49 4C 55 52 45  2401 	.ascii "FAILURE: Buffer doesn't exist"
+             3A 20 42 75 66 66 65
+             72 20 64 6F 65 73 6E
+             27 74 20 65 78 69 73
+             74
+      0001E6 0A                    2402 	.db 0x0a
+      0001E7 0D                    2403 	.db 0x0d
+      0001E8 00                    2404 	.db 0x00
+                                   2405 	.area CSEG    (CODE)
+                                   2406 	.area CONST   (CODE)
+      0001E9                       2407 ___str_24:
+      0001E9 0A                    2408 	.db 0x0a
+      0001EA 0D                    2409 	.db 0x0d
+      0001EB 53 55 43 43 45 53 53  2410 	.ascii "SUCCESS: Buffer freed"
+             3A 20 42 75 66 66 65
+             72 20 66 72 65 65 64
+      000200 0A                    2411 	.db 0x0a
+      000201 0D                    2412 	.db 0x0d
+      000202 00                    2413 	.db 0x00
+                                   2414 	.area CSEG    (CODE)
+                                   2415 	.area CONST   (CODE)
+      000203                       2416 ___str_25:
+      000203 0A                    2417 	.db 0x0a
+      000204 0D                    2418 	.db 0x0d
+      000205 2A 2A 2A 2A 2A 2A 2A  2419 	.ascii "************  HEAP REPORT  **************"
+             2A 2A 2A 2A 2A 20 20
+             48 45 41 50 20 52 45
+             50 4F 52 54 20 20 2A
+             2A 2A 2A 2A 2A 2A 2A
+             2A 2A 2A 2A 2A 2A
+      00022E 0A                    2420 	.db 0x0a
+      00022F 0D                    2421 	.db 0x0d
+      000230 00                    2422 	.db 0x00
+                                   2423 	.area CSEG    (CODE)
+                                   2424 	.area CONST   (CODE)
+      000231                       2425 ___str_26:
+      000231 74 6F 74 61 6C 20 6E  2426 	.ascii "total number of characters received since the last '?' : %d"
+             75 6D 62 65 72 20 6F
+             66 20 63 68 61 72 61
+             63 74 65 72 73 20 72
+             65 63 65 69 76 65 64
+             20 73 69 6E 63 65 20
+             74 68 65 20 6C 61 73
+             74 20 27 3F 27 20 3A
+             20 25 64
+      00026C 0A                    2427 	.db 0x0a
+      00026D 0D                    2428 	.db 0x0d
+      00026E 00                    2429 	.db 0x00
+                                   2430 	.area CSEG    (CODE)
+                                   2431 	.area CONST   (CODE)
+      00026F                       2432 ___str_27:
+      00026F 74 6F 74 61 6C 20 6E  2433 	.ascii "total number of storage characters received : %d"
+             75 6D 62 65 72 20 6F
+             66 20 73 74 6F 72 61
+             67 65 20 63 68 61 72
+             61 63 74 65 72 73 20
+             72 65 63 65 69 76 65
+             64 20 3A 20 25 64
+      00029F 0A                    2434 	.db 0x0a
+      0002A0 0D                    2435 	.db 0x0d
+      0002A1 00                    2436 	.db 0x00
+                                   2437 	.area CSEG    (CODE)
+                                   2438 	.area CONST   (CODE)
+      0002A2                       2439 ___str_28:
+      0002A2 74 6F 74 61 6C 20 6E  2440 	.ascii "total number of buffers : %d"
+             75 6D 62 65 72 20 6F
+             66 20 62 75 66 66 65
+             72 73 20 3A 20 25 64
+      0002BE 0A                    2441 	.db 0x0a
+      0002BF 0D                    2442 	.db 0x0d
+      0002C0 00                    2443 	.db 0x00
+                                   2444 	.area CSEG    (CODE)
+                                   2445 	.area CONST   (CODE)
+      0002C1                       2446 ___str_29:
+      0002C1 0A                    2447 	.db 0x0a
+      0002C2 0D                    2448 	.db 0x0d
+      0002C3 0A                    2449 	.db 0x0a
+      0002C4 0D                    2450 	.db 0x0d
+      0002C5 42 75 66 66 65 72 20  2451 	.ascii "Buffer #%d"
+             23 25 64
+      0002CF 0A                    2452 	.db 0x0a
+      0002D0 0D                    2453 	.db 0x0d
+      0002D1 00                    2454 	.db 0x00
+                                   2455 	.area CSEG    (CODE)
+                                   2456 	.area CONST   (CODE)
+      0002D2                       2457 ___str_30:
+      0002D2 0A                    2458 	.db 0x0a
+      0002D3 0D                    2459 	.db 0x0d
+      0002D4 49 74 20 69 73 20 75  2460 	.ascii "It is unavailable (was freed)"
+             6E 61 76 61 69 6C 61
+             62 6C 65 20 28 77 61
+             73 20 66 72 65 65 64
+             29
+      0002F1 0A                    2461 	.db 0x0a
+      0002F2 0D                    2462 	.db 0x0d
+      0002F3 00                    2463 	.db 0x00
+                                   2464 	.area CSEG    (CODE)
+                                   2465 	.area CONST   (CODE)
+      0002F4                       2466 ___str_31:
+      0002F4 0A                    2467 	.db 0x0a
+      0002F5 0D                    2468 	.db 0x0d
+      0002F6 42 75 66 66 65 72 20  2469 	.ascii "Buffer start address: "
+             73 74 61 72 74 20 61
+             64 64 72 65 73 73 3A
+             20
+      00030C 00                    2470 	.db 0x00
+                                   2471 	.area CSEG    (CODE)
+                                   2472 	.area CONST   (CODE)
+      00030D                       2473 ___str_32:
+      00030D 30 78                 2474 	.ascii "0x"
+      00030F 00                    2475 	.db 0x00
+                                   2476 	.area CSEG    (CODE)
+                                   2477 	.area CONST   (CODE)
+      000310                       2478 ___str_33:
+      000310 0A                    2479 	.db 0x0a
+      000311 0D                    2480 	.db 0x0d
+      000312 42 75 66 66 65 72 20  2481 	.ascii "Buffer end address:   "
+             65 6E 64 20 61 64 64
+             72 65 73 73 3A 20 20
+             20
+      000328 00                    2482 	.db 0x00
+                                   2483 	.area CSEG    (CODE)
+                                   2484 	.area CONST   (CODE)
+      000329                       2485 ___str_34:
+      000329 0A                    2486 	.db 0x0a
+      00032A 0D                    2487 	.db 0x0d
+      00032B 54 6F 74 61 6C 20 61  2488 	.ascii "Total allocated size of the buffer (in bytes): %d"
+             6C 6C 6F 63 61 74 65
+             64 20 73 69 7A 65 20
+             6F 66 20 74 68 65 20
+             62 75 66 66 65 72 20
+             28 69 6E 20 62 79 74
+             65 73 29 3A 20 25 64
+      00035C 00                    2489 	.db 0x00
+                                   2490 	.area CSEG    (CODE)
+                                   2491 	.area CONST   (CODE)
+      00035D                       2492 ___str_35:
+      00035D 0A                    2493 	.db 0x0a
+      00035E 0D                    2494 	.db 0x0d
+      00035F 4E 75 6D 62 65 72 20  2495 	.ascii "Number of free spaces remaining in that buffer: %d"
+             6F 66 20 66 72 65 65
+             20 73 70 61 63 65 73
+             20 72 65 6D 61 69 6E
+             69 6E 67 20 69 6E 20
+             74 68 61 74 20 62 75
+             66 66 65 72 3A 20 25
+             64
+      000391 0A                    2496 	.db 0x0a
+      000392 0D                    2497 	.db 0x0d
+      000393 00                    2498 	.db 0x00
+                                   2499 	.area CSEG    (CODE)
+                                   2500 	.area CONST   (CODE)
+      000394                       2501 ___str_36:
+      000394 0A                    2502 	.db 0x0a
+      000395 0D                    2503 	.db 0x0d
+      000396 53 55 43 43 45 53 53  2504 	.ascii "SUCCESS: All buffers are freed successfully"
+             3A 20 41 6C 6C 20 62
+             75 66 66 65 72 73 20
+             61 72 65 20 66 72 65
+             65 64 20 73 75 63 63
+             65 73 73 66 75 6C 6C
+             79
+      0003C1 0A                    2505 	.db 0x0a
+      0003C2 0D                    2506 	.db 0x0d
+      0003C3 00                    2507 	.db 0x00
+                                   2508 	.area CSEG    (CODE)
+                                   2509 	.area XINIT   (CODE)
+                                   2510 	.area CABS    (ABS,CODE)
